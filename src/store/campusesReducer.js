@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { useDispatch } from "react-redux";
 
 const _getCampuses = 'GET_CAMPUSES';
 
