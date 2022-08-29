@@ -4,6 +4,9 @@ import { getAllStudentsThunk } from "../store/studentsReducer";
 
 export const AllStudents = () => {
     const dispatch = useDispatch();
+    // note to self: need to access state.studentsReducer.students
+    // because the combineReducer in configureStore seems to store the state
+    // in the individual reducer slice
     const studentList = useSelector(state => state.studentsReducer.students)
 
     React.useEffect(() => {

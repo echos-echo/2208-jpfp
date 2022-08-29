@@ -4397,7 +4397,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AllStudents = function AllStudents() {
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(); // note to self: need to access state.studentsReducer.students
+  // because the combineReducer in configureStore seems to store the state
+  // in the individual reducer slice
+
   var studentList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.studentsReducer.students;
   });
