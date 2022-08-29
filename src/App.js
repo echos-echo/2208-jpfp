@@ -11,6 +11,7 @@ function App(){
             <div>
                 <nav>
                     <Link to='/students'>Our Students</Link>
+                    <br/>
                     <Link to='/campuses'>Our Campuses</Link>
                 </nav>
                 <main>
