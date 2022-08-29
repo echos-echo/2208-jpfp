@@ -6,6 +6,10 @@ const Student = require('./student')
 const Campus = require('./campus')
 
 const syncAndSeed = async () => {
+
+  Student.belongsTo(Campus);
+  Campus.hasMany(Student);
+
     await db.sync({ force: true });
 
     //use this area to sync your database
