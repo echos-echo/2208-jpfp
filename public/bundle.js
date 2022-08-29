@@ -4331,7 +4331,7 @@ function App() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
 /* harmony export */   "getAllCampusesThunk": () => (/* binding */ getAllCampusesThunk)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -4389,7 +4389,7 @@ var getAllCampusesThunk = function getAllCampusesThunk() {
     };
   }();
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (campusesReducer = function campusesReducer() {
+var campusesReducer = function campusesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -4402,7 +4402,7 @@ var getAllCampusesThunk = function getAllCampusesThunk() {
     default:
       return state;
   }
-});
+};
 
 /***/ }),
 
@@ -4431,8 +4431,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
   reducer: {
-    campusesReducer: _campusesReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-    studentsReducer: _studentsReducer__WEBPACK_IMPORTED_MODULE_0__["default"]
+    campusesReducer: _campusesReducer__WEBPACK_IMPORTED_MODULE_1__.campusesReducer,
+    studentsReducer: _studentsReducer__WEBPACK_IMPORTED_MODULE_0__.studentsReducer
   }
 });
 
@@ -4447,8 +4447,8 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk)
+/* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk),
+/* harmony export */   "studentsReducer": () => (/* binding */ studentsReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -4505,7 +4505,7 @@ var getAllStudentsThunk = function getAllStudentsThunk() {
     };
   }();
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (studentsReducer = function studentsReducer() {
+var studentsReducer = function studentsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -4518,7 +4518,7 @@ var getAllStudentsThunk = function getAllStudentsThunk() {
     default:
       return state;
   }
-});
+};
 
 /***/ }),
 

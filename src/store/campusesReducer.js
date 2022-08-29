@@ -18,7 +18,7 @@ export const getAllCampusesThunk = () => {
     }
 }
 
-export default campusesReducer = (state = {}, action) => {
+export const campusesReducer = (state = {}, action) => {
     switch (action.type) {
         case _getCampuses:
             return { ...state, campuses: action.campuses};

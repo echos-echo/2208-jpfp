@@ -15,6 +15,10 @@ app.use(volleyball)
 // the routes i made!
 app.use('/api', require('./api'))
 
+// will send the app index if a non-api call is made
+app.get('*', (req, res) => {
+    res.sendFile('index.html')
+  })
 
 
 
