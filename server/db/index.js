@@ -10,13 +10,11 @@ const syncAndSeed = async () => {
   Student.belongsTo(Campus);
   Campus.hasMany(Student);
 
-    await db.sync({ force: true });
+  await db.sync({ force: false });
 
-    //use this area to sync your database
+  //use this area to sync your database
 
-    console.log(`
-    Seeding successful!
-  `);
+  console.log(`Seeding successful!`);
 };
 
 
