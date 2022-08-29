@@ -12,6 +12,8 @@ app.use(volleyball)
 
 //this is where some things should go
 
+// the routes i made!
+app.use('/api', require('./api'))
 
 
 
