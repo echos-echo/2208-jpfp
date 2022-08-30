@@ -9,4 +9,12 @@ campusesRouter.get('/', async (req, res, next) => {
     }
 })
 
+campusesRouter.get('/:campusId', async (req, res, next) => {
+    try {
+        res.send(await Campus.findByPk(req.params.campusId))
+    } catch(err) {
+        next(err);
+    }
+})
+
 module.exports = campusesRouter;
