@@ -20,7 +20,9 @@ function App(){
                         {/* temporary path; may add a homepage later on */}
                         <Route exact path='/' element={<AllStudents/>}/>
                         <Route path='/students' element={<AllStudents/>}/>
+                        <Route path='/students/:studentId' element={<AllStudents/>}/>
                         <Route path='/campuses' element={<AllCampuses/>}/>
+                        <Route path='/campuses/:campusId' element={<AllCampuses/>}/>
                     </Routes>
                 </main>
             </div>
