@@ -1,5 +1,6 @@
 const campusesRouter = require('express').Router();
 const Campus = require('../db/campus');
+const Student = require('../db/student');
 
 campusesRouter.get('/', async (req, res, next) => {
     try {
@@ -11,7 +12,11 @@ campusesRouter.get('/', async (req, res, next) => {
 
 campusesRouter.get('/:campusId', async (req, res, next) => {
     try {
-        res.send(await Campus.findByPk(req.params.campusId))
+        res.send(await Campus.findByPk(req.params.campusId, {
+            include: {
+                model: Student
+            }
+        }))
     } catch(err) {
         next(err);
     }

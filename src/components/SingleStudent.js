@@ -6,9 +6,6 @@ import { getOneStudentThunk } from "../store/studentsReducer";
 export const SingleStudent = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    // note to self: need to access state.studentsReducer.students
-    // because the combineReducer in configureStore seems to store the state
-    // in the individual reducer slice
     const student = useSelector(state => state.studentsReducer.student)
 
     React.useEffect(() => {
@@ -27,7 +24,7 @@ export const SingleStudent = () => {
                         <p>GPA: {student.gpa}</p>
                         <hr/>
                     </div>
-                : 'Loading students...'
+                : 'Loading student...'
             }
         </div>
     )
