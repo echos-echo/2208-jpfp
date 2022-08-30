@@ -24,7 +24,11 @@ export const SingleCampus = () => {
                     {campus.students.length > 0 ? 
                         <ul>
                             {campus.students.map(student => 
-                            <li key={student.id}>{student.firstName + ' ' + student.lastName}</li>)}
+                            <li key={student.id}>
+                                <Link to={`/students/${student.id}`}>
+                                    {student.firstName + ' ' + student.lastName}
+                                </Link>
+                            </li>)}
                         </ul> 
                         : 'This campus currently has no students enrolled.' }
                     <hr/>
