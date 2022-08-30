@@ -4471,17 +4471,17 @@ var SingleCampus = function SingleCampus() {
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getCampusThunk)(params.campusId));
   }, []);
+  console.dir(campus);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, campus ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: campus.id
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: campus.imageUrl,
     alt: campus.imageUrl
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, campus.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Students Currently Enrolled:"), campus.students.length > 0 ? campus.students.map(function (student) {
-    /*#__PURE__*/
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, campus.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Students Currently Enrolled:"), campus.students.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, campus.students.map(function (student) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: student.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, student.firstName + ' ' + student.lastName));
-  }) : 'This campus currently has no students enrolled.', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : 'Loading campus information...');
+    }, student.firstName + ' ' + student.lastName);
+  })) : 'This campus currently has no students enrolled.', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : 'Loading campus information...');
 };
 
 /***/ }),
