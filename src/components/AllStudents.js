@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllStudentsThunk } from "../store/studentsReducer";
+import { deleteStudentThunk, getAllStudentsThunk } from "../store/studentsReducer";
 import { AddStudent } from "./AddStudent";
 
 export const AllStudents = () => {
@@ -21,7 +21,7 @@ export const AllStudents = () => {
             { studentList ?
                 studentList.map(student => 
                     <div key={student.id}>
-                        <button onClick={() => {}}>X</button>
+                        <button onClick={() => dispatch(deleteStudentThunk(student))}>X</button>
                         <Link to={`/students/${student.id}`}>
                         <img src={student.imageUrl} alt={student.imageUrl}/>
                         <h2>{student.firstName + ' ' + student.lastName}</h2>

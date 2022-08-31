@@ -4642,7 +4642,9 @@ var AllStudents = function AllStudents() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: student.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      onClick: function onClick() {}
+      onClick: function onClick() {
+        return dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.deleteStudentThunk)(student));
+      }
     }, "X"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
       to: "/students/".concat(student.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
@@ -4999,10 +5001,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // function configureStore() {
-//     // return createStore(########, applyMiddleware(thunk));
-// }
-// export default configureStore;
 
 var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
   reducer: {
@@ -5023,6 +5021,7 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addStudentThunk": () => (/* binding */ addStudentThunk),
+/* harmony export */   "deleteStudentThunk": () => (/* binding */ deleteStudentThunk),
 /* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk),
 /* harmony export */   "getOneStudentThunk": () => (/* binding */ getOneStudentThunk),
 /* harmony export */   "studentsReducer": () => (/* binding */ studentsReducer)
@@ -5170,6 +5169,33 @@ var addStudentThunk = function addStudentThunk(studentData) {
     };
   }();
 };
+var deleteStudentThunk = function deleteStudentThunk(studentData) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(studentData.id), studentData).then(function (res) {
+                return dispatch(deleteStudent(res.data));
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
 var studentsReducer = function studentsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -5188,6 +5214,22 @@ var studentsReducer = function studentsReducer() {
     case _addStudent:
       return _objectSpread(_objectSpread({}, state), {}, {
         students: [].concat(_toConsumableArray(state.students), [action.student])
+      });
+
+    case _deleteStudent:
+      console.dir(action);
+      var index = state.students.findIndex(function (student) {
+        return student.id === action.student.id;
+      });
+      console.log("the student is #".concat(index));
+
+      var newStudents = _toConsumableArray(state.students);
+
+      console.dir(newStudents);
+      newStudents.splice(index, 1);
+      console.dir(newStudents);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        students: newStudents
       });
 
     default:

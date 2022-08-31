@@ -57,6 +57,14 @@ export const addStudentThunk = studentData => {
     }
 }
 
+export const deleteStudentThunk = studentData => {
+    return async dispatch => {
+        await Axios.delete(`/api/students/${studentData.id}`, studentData)
+            .then(res => dispatch(deleteStudent(res.data)))
+            .catch(err => console.error(err));
+    }
+}
+
 export const studentsReducer = (state = {}, action) => {
     switch (action.type) {
         case _getStudents:
@@ -64,7 +72,16 @@ export const studentsReducer = (state = {}, action) => {
         case _getStudent:
             return { ...state, student: action.student };
         case _addStudent:
-            return { ...state, students: [...state.students, action.student] }
+            return { ...state, students: [...state.students, action.student] };
+        case _deleteStudent:
+            console.dir(action)
+            const index = state.students.findIndex(student => student.id === action.student.id);
+            console.log(`the student is #${index}`)
+            const newStudents = [...state.students];
+            console.dir(newStudents)
+            newStudents.splice(index, 1);
+            console.dir(newStudents)
+            return { ...state, students: newStudents };
         default:
             return state;
     }

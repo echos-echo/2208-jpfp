@@ -26,4 +26,14 @@ studentsRouter.post('/', async (req, res, next) => {
     }
 })
 
+studentsRouter.delete('/:studentId', async (req, res, next) => {
+    try {
+        const student = await Student.findByPk(req.params.studentId);
+        await student.destroy();
+        res.send(student);
+    } catch(err) {
+        next(err);
+    }
+})
+
 module.exports = studentsRouter;
