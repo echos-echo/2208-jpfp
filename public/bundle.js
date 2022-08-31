@@ -4438,6 +4438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/studentsReducer */ "./src/store/studentsReducer.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4449,6 +4450,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -4470,38 +4472,58 @@ var AddStudent = function AddStudent() {
       email = _React$useState6[0],
       setEmail = _React$useState6[1];
 
+  var handleSubmit = function handleSubmit(event) {
+    console.log('submitting data...');
+    event.preventDefault();
+    dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.addStudentThunk)({
+      firstName: firstName,
+      lastName: lastName,
+      email: email
+    }));
+  };
+
+  var handleChange = function handleChange(prop) {
+    return function (event) {
+      switch (prop) {
+        case 'firstName':
+          setFName(event.target.value);
+          break;
+
+        case 'lastName':
+          setLName(event.target.value);
+          break;
+
+        case 'email':
+          setEmail(event.target.value);
+          break;
+      }
+    };
+  };
+
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {}, [firstName, lastName, email]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    onSubmit: function onSubmit() {
-      return null;
-    }
+    onSubmit: handleSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "firstName"
   }, "First Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "firstName",
     value: firstName,
-    onChange: function onChange() {
-      return setFName(event.target.value);
-    }
+    onChange: handleChange('firstName')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "lastName"
   }, "Last Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "lastName",
     value: lastName,
-    onChange: function onChange() {
-      return setLName(event.target.value);
-    }
+    onChange: handleChange('lastName')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "email"
   }, "Address: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "email",
     value: email,
-    onChange: function onChange() {
-      return setEmail(event.target.value);
-    }
+    onChange: handleChange('email')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "submit"
   }, "Add Student")));
@@ -4875,6 +4897,7 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addStudentThunk": () => (/* binding */ addStudentThunk),
 /* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk),
 /* harmony export */   "getOneStudentThunk": () => (/* binding */ getOneStudentThunk),
 /* harmony export */   "studentsReducer": () => (/* binding */ studentsReducer)
@@ -4898,6 +4921,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var _getStudents = 'GET_STUDENTS';
 var _getStudent = 'GET_STUDENT';
+var _addStudent = 'ADD_STUDENT';
 
 var getStudents = function getStudents(data) {
   return {
@@ -4909,6 +4933,13 @@ var getStudents = function getStudents(data) {
 var getStudent = function getStudent(data) {
   return {
     type: _getStudent,
+    student: data
+  };
+};
+
+var addStudent = function addStudent(data) {
+  return {
+    type: _addStudent,
     student: data
   };
 };
@@ -4964,6 +4995,33 @@ var getOneStudentThunk = function getOneStudentThunk(studentId) {
 
     return function (_x2) {
       return _ref2.apply(this, arguments);
+    };
+  }();
+};
+var addStudentThunk = function addStudentThunk(studentData) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", studentData).then(function (res) {
+                return addStudent(res.data);
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
