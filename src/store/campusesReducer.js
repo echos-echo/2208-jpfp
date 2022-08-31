@@ -3,6 +3,7 @@ import Axios from "axios";
 const _getCampuses = 'GET_CAMPUSES';
 const _getCampus = 'GET_CAMPUS';
 const _addCampus = 'ADD_CAMPUS';
+const _deleteCampus = 'DELETE_CAMPUS';
 
 const getCampuses = data => {
     return {
@@ -22,6 +23,13 @@ const addCampus = campusData => {
     return {
         type: _addCampus,
         campus: campusData
+    }
+}
+
+const deleteCampus = data => {
+    return {
+        type: _deleteCampus,
+        campus: data
     }
 }
 

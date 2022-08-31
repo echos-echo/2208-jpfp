@@ -4803,6 +4803,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _getCampuses = 'GET_CAMPUSES';
 var _getCampus = 'GET_CAMPUS';
 var _addCampus = 'ADD_CAMPUS';
+var _deleteCampus = 'DELETE_CAMPUS';
 
 var getCampuses = function getCampuses(data) {
   return {
@@ -4822,6 +4823,13 @@ var addCampus = function addCampus(campusData) {
   return {
     type: _addCampus,
     campus: campusData
+  };
+};
+
+var deleteCampus = function deleteCampus(data) {
+  return {
+    type: _deleteCampus,
+    campus: data
   };
 };
 
@@ -5011,6 +5019,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _getStudents = 'GET_STUDENTS';
 var _getStudent = 'GET_STUDENT';
 var _addStudent = 'ADD_STUDENT';
+var _deleteStudent = 'DELETE_STUDENT';
 
 var getStudents = function getStudents(data) {
   return {
@@ -5029,6 +5038,13 @@ var getStudent = function getStudent(data) {
 var addStudent = function addStudent(data) {
   return {
     type: _addStudent,
+    student: data
+  };
+};
+
+var deleteStudent = function deleteStudent(data) {
+  return {
+    type: _deleteStudent,
     student: data
   };
 };

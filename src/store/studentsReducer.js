@@ -3,6 +3,7 @@ import Axios from "axios";
 const _getStudents = 'GET_STUDENTS';
 const _getStudent = 'GET_STUDENT';
 const _addStudent = 'ADD_STUDENT';
+const _deleteStudent = 'DELETE_STUDENT';
 
 const getStudents = data => {
     return {
@@ -21,6 +22,13 @@ const getStudent = data => {
 const addStudent = data => {
     return {
         type: _addStudent,
+        student: data
+    }
+}
+
+const deleteStudent = data => {
+    return {
+        type: _deleteStudent,
         student: data
     }
 }
