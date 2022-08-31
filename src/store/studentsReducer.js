@@ -44,7 +44,7 @@ export const getOneStudentThunk = studentId => {
 export const addStudentThunk = studentData => {
     return async dispatch => {
         await Axios.post(`/api/students`, studentData)
-            .then(res => addStudent(res.data))
+            .then(res => dispatch(addStudent(res.data)))
             .catch(err => console.error(err));
     }
 }
@@ -55,6 +55,8 @@ export const studentsReducer = (state = {}, action) => {
             return { ...state, students: action.students };
         case _getStudent:
             return { ...state, student: action.student };
+        case _addStudent:
+            return { ...state, students: [...state.students, action.student] }
         default:
             return state;
     }

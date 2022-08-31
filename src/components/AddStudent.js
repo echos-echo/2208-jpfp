@@ -9,9 +9,13 @@ export const AddStudent = () => {
     const [email, setEmail] = React.useState('');
 
     const handleSubmit = event => {
-        console.log('submitting data...')
         event.preventDefault();
         dispatch(addStudentThunk({firstName, lastName, email}));
+
+        // clears the fields after a student is added
+        setFName('');
+        setLName('');
+        setEmail('');
     }
 
     const handleChange = prop => event => {
