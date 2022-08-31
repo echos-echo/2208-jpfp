@@ -11,7 +11,7 @@ export const SingleStudent = () => {
     const campuses = useSelector(state => state.campusesReducer.campuses);
 
     // .find() would cause an error on the first render, hence ternary
-    const thisStudentsCampus = campuses ? campuses.find(campus => campus.id === student.campusId) : null;
+    const thisStudentsCampus = (campuses && student) ? campuses.find(campus => campus.id === student.campusId) : null;
 
     console.dir(student);
     console.dir(thisStudentsCampus);

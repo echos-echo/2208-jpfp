@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllCampusesThunk } from "../store/campusesReducer";
+import { AddCampus } from "./AddCampus";
 
 export const AllCampuses = () => {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export const AllCampuses = () => {
 
     return (
         <div>
+            <AddCampus/><hr/>
             { campusList ?
                 campusList.map(campus => 
                     <div key={campus.id}>

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllStudentsThunk } from "../store/studentsReducer";
+import { AddStudent } from "./AddStudent";
 
 export const AllStudents = () => {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export const AllStudents = () => {
 
     return (
         <div>
+            <AddStudent/><hr/>
             { studentList ?
                 studentList.map(student => 
                     <div key={student.id}>
