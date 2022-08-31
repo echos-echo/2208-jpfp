@@ -57,6 +57,14 @@ export const addCampusThunk = campusData => {
     }
 }
 
+export const deleteCampusThunk = campusData => {
+    return async dispatch => {
+        await Axios.delete(`/api/campuses/${campusData.id}`, campusData)
+            .then(res => dispatch(deleteCampus(res.data)))
+            .catch(err => console.error(err));
+    }
+}
+
 export const campusesReducer = (state = {}, action) => {
     switch (action.type) {
         case _getCampuses:
@@ -65,6 +73,11 @@ export const campusesReducer = (state = {}, action) => {
             return { ...state, campus: action.campus };
         case _addCampus:
             return { ...state, campuses: [...state.campuses, action.campus] }
+        case _deleteCampus:
+            const index = state.campuses.indexOf(action.campus);
+            const newCampuses = [...state.campuses];
+            newCampuses.splice(index, 1);
+            return { ...state, campuses: newCampuses };
         default:
             return state;
     }

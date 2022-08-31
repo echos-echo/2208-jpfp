@@ -30,4 +30,14 @@ campusesRouter.post('/', async (req, res, next) => {
     }
 })
 
+campusesRouter.delete('/:campusId', async (req, res, next) => {
+    try {
+        const campus = await Campus.findByPk(req.params.campusId);
+        await campus.destroy();
+        res.send(campus);
+    } catch(err) {
+        next(err);
+    }
+})
+
 module.exports = campusesRouter;

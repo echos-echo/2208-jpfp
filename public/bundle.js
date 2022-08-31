@@ -4591,7 +4591,9 @@ var AllCampuses = function AllCampuses() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: campus.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      onClick: function onClick() {}
+      onClick: function onClick() {
+        return dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.deleteCampusThunk)(campus));
+      }
     }, "X"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
       to: "/campuses/".concat(campus.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
@@ -4768,6 +4770,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addCampusThunk": () => (/* binding */ addCampusThunk),
 /* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
+/* harmony export */   "deleteCampusThunk": () => (/* binding */ deleteCampusThunk),
 /* harmony export */   "getAllCampusesThunk": () => (/* binding */ getAllCampusesThunk),
 /* harmony export */   "getCampusThunk": () => (/* binding */ getCampusThunk)
 /* harmony export */ });
@@ -4914,6 +4917,33 @@ var addCampusThunk = function addCampusThunk(campusData) {
     };
   }();
 };
+var deleteCampusThunk = function deleteCampusThunk(campusData) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/campuses/".concat(campusData.id), campusData).then(function (res) {
+                return dispatch(deleteCampus(res.data));
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
 var campusesReducer = function campusesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -4932,6 +4962,16 @@ var campusesReducer = function campusesReducer() {
     case _addCampus:
       return _objectSpread(_objectSpread({}, state), {}, {
         campuses: [].concat(_toConsumableArray(state.campuses), [action.campus])
+      });
+
+    case _deleteCampus:
+      var index = state.campuses.indexOf(action.campus);
+
+      var newCampuses = _toConsumableArray(state.campuses);
+
+      newCampuses.splice(index, 1);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        campuses: newCampuses
       });
 
     default:
