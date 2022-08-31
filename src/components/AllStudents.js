@@ -21,6 +21,7 @@ export const AllStudents = () => {
             { studentList ?
                 studentList.map(student => 
                     <div key={student.id}>
+                        <button onClick={() => {}}>X</button>
                         <Link to={`/students/${student.id}`}>
                         <img src={student.imageUrl} alt={student.imageUrl}/>
                         <h2>{student.firstName + ' ' + student.lastName}</h2>

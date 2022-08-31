@@ -20,6 +20,7 @@ export const AllCampuses = () => {
             { campusList ?
                 campusList.map(campus => 
                     <div key={campus.id}>
+                        <button onClick={() => {}}>X</button>
                         <Link to={`/campuses/${campus.id}`}>
                         <img src={campus.imageUrl} alt={campus.imageUrl}/>
                         <h2>{campus.name}</h2>
