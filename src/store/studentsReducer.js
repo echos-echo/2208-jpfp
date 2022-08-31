@@ -74,13 +74,9 @@ export const studentsReducer = (state = {}, action) => {
         case _addStudent:
             return { ...state, students: [...state.students, action.student] };
         case _deleteStudent:
-            console.dir(action)
             const index = state.students.findIndex(student => student.id === action.student.id);
-            console.log(`the student is #${index}`)
             const newStudents = [...state.students];
-            console.dir(newStudents)
             newStudents.splice(index, 1);
-            console.dir(newStudents)
             return { ...state, students: newStudents };
         default:
             return state;

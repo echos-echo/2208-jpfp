@@ -4967,7 +4967,9 @@ var campusesReducer = function campusesReducer() {
       });
 
     case _deleteCampus:
-      var index = state.campuses.indexOf(action.campus);
+      var index = state.campuses.findIndex(function (campus) {
+        return campus.id === action.campus.id;
+      });
 
       var newCampuses = _toConsumableArray(state.campuses);
 
@@ -5217,17 +5219,13 @@ var studentsReducer = function studentsReducer() {
       });
 
     case _deleteStudent:
-      console.dir(action);
       var index = state.students.findIndex(function (student) {
         return student.id === action.student.id;
       });
-      console.log("the student is #".concat(index));
 
       var newStudents = _toConsumableArray(state.students);
 
-      console.dir(newStudents);
       newStudents.splice(index, 1);
-      console.dir(newStudents);
       return _objectSpread(_objectSpread({}, state), {}, {
         students: newStudents
       });

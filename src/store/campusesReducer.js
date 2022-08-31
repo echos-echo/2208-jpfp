@@ -74,7 +74,7 @@ export const campusesReducer = (state = {}, action) => {
         case _addCampus:
             return { ...state, campuses: [...state.campuses, action.campus] }
         case _deleteCampus:
-            const index = state.campuses.indexOf(action.campus);
+            const index = state.campuses.findIndex(campus => campus.id === action.campus.id);
             const newCampuses = [...state.campuses];
             newCampuses.splice(index, 1);
             return { ...state, campuses: newCampuses };
