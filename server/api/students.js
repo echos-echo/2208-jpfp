@@ -1,4 +1,5 @@
 const studentsRouter = require('express').Router();
+const Campus = require('../db/campus');
 const Student = require('../db/student');
 
 studentsRouter.get('/', async (req, res, next) => {
