@@ -22,4 +22,12 @@ campusesRouter.get('/:campusId', async (req, res, next) => {
     }
 })
 
+campusesRouter.post('/', async (req, res, next) => {
+    try {
+        res.status(201).send(await Campus.create(req.body))
+    } catch(err) {
+        next(err);
+    }
+})
+
 module.exports = campusesRouter;

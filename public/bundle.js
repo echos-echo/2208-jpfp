@@ -4367,6 +4367,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/campusesReducer */ "./src/store/campusesReducer.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4378,6 +4379,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -4394,29 +4396,48 @@ var AddCampus = function AddCampus() {
       address = _React$useState4[0],
       setAddress = _React$useState4[1];
 
+  var handleSubmit = function handleSubmit(event) {
+    event.preventDefault();
+    dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.addCampusThunk)({
+      name: name,
+      address: address
+    })); // clears the fields after a campus is added
+
+    setName('');
+    setAddress('');
+  };
+
+  var handleChange = function handleChange(prop) {
+    return function (event) {
+      switch (prop) {
+        case 'name':
+          setName(event.target.value);
+          break;
+
+        case 'address':
+          setAddress(event.target.value);
+          break;
+      }
+    };
+  };
+
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {}, [name, address]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    onSubmit: function onSubmit() {
-      return null;
-    }
+    onSubmit: handleSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "name"
   }, "Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "name",
     value: name,
-    onChange: function onChange() {
-      return setName(event.target.value);
-    }
+    onChange: handleChange('name')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "address"
   }, "Address: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "address",
     value: address,
-    onChange: function onChange() {
-      return setAddress(event.target.value);
-    }
+    onChange: handleChange('address')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "submit"
   }, "Add Campus")));
@@ -4522,7 +4543,7 @@ var AddStudent = function AddStudent() {
     onChange: handleChange('lastName')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "email"
-  }, "Address: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, "Email: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "email",
     value: email,
@@ -4745,6 +4766,7 @@ var SingleStudent = function SingleStudent() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addCampusThunk": () => (/* binding */ addCampusThunk),
 /* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
 /* harmony export */   "getAllCampusesThunk": () => (/* binding */ getAllCampusesThunk),
 /* harmony export */   "getCampusThunk": () => (/* binding */ getCampusThunk)
@@ -4752,6 +4774,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -4768,6 +4802,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var _getCampuses = 'GET_CAMPUSES';
 var _getCampus = 'GET_CAMPUS';
+var _addCampus = 'ADD_CAMPUS';
 
 var getCampuses = function getCampuses(data) {
   return {
@@ -4780,6 +4815,13 @@ var getCampus = function getCampus(data) {
   return {
     type: _getCampus,
     campus: data
+  };
+};
+
+var addCampus = function addCampus(campusData) {
+  return {
+    type: _addCampus,
+    campus: campusData
   };
 };
 
@@ -4837,6 +4879,33 @@ var getCampusThunk = function getCampusThunk(campusId) {
     };
   }();
 };
+var addCampusThunk = function addCampusThunk(campusData) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/campuses", campusData).then(function (res) {
+                return dispatch(addCampus(res.data));
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
 var campusesReducer = function campusesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -4850,6 +4919,11 @@ var campusesReducer = function campusesReducer() {
     case _getCampus:
       return _objectSpread(_objectSpread({}, state), {}, {
         campus: action.campus
+      });
+
+    case _addCampus:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        campuses: [].concat(_toConsumableArray(state.campuses), [action.campus])
       });
 
     default:

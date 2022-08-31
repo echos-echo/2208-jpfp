@@ -42,7 +42,7 @@ export const AddStudent = () => {
                 <input type='text' name='firstName' value={firstName} onChange={handleChange('firstName')}/>
                 <label htmlFor='lastName'>Last Name: </label>
                 <input type='text' name='lastName' value={lastName} onChange={handleChange('lastName')}/>
-                <label htmlFor='email'>Address: </label>
+                <label htmlFor='email'>Email: </label>
                 <input type='text' name='email' value={email} onChange={handleChange('email')}/>
                 <button type='submit'>Add Student</button>
             </form>
