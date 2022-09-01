@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getAllCampusesThunk } from "../store/campusesReducer";
 import { getOneStudentThunk } from "../store/studentsReducer";
+import { EditStudent } from "./EditStudent";
 
 export const SingleStudent = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export const SingleStudent = () => {
         <div>
             { student ?
                     <div key={student.id}>
+                        <EditStudent student={student}/>
                         <Link to={`/students/${student.id}`}>
                         <img src={student.imageUrl} alt={student.imageUrl}/>
                         <h2>{student.firstName + ' ' + student.lastName}</h2>

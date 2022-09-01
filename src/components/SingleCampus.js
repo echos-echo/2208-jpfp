@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getCampusThunk } from "../store/campusesReducer";
+import { EditCampus } from "./EditCampus";
 
 export const SingleCampus = () => {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export const SingleCampus = () => {
         <div>
             { campus ?
                 <div key={campus.id}>
+                    <EditCampus campus={campus}/>
                     <img src={campus.imageUrl} alt={campus.imageUrl}/>
                     <h2>{campus.name}</h2>
                     <p>{campus.address}</p>
