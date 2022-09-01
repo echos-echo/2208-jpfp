@@ -10,8 +10,10 @@ const syncAndSeed = async () => {
     Campus.hasMany(Student, { foreignKey: 'campusId' });
     Student.belongsTo(Campus);
 
+    // will force the db to re-instantiate and seed every time
     await db.sync({ force: true });
 
+    // dummy data of students; close this code block in your IDE
     const students = [
       {
           firstName: 'Eve',
@@ -741,7 +743,7 @@ const syncAndSeed = async () => {
           imageUrl: "http://dummyimage.com/219x246.png/5fa2dd/ffffff"
       }
     ];
-
+    // dummy data of campuses; close this code block in your IDE
     const campuses = [
         {
             name: 'FSA - NYC',
@@ -1157,6 +1159,7 @@ const syncAndSeed = async () => {
     ];
 
     await Promise.all(
+      // campuses need to be made first so students can be associated with a campus via campusId
       campuses.map(campus => Campus.create(campus))),
       students.map(student => Student.create(student));
 
