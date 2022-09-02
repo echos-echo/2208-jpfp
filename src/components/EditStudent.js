@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addStudentThunk } from "../store/studentsReducer";
+import { addStudentThunk, updateStudentThunk } from "../store/studentsReducer";
 
 export const EditStudent = props => {
     const dispatch = useDispatch();
@@ -11,6 +11,7 @@ export const EditStudent = props => {
     const handleSubmit = event => {
         event.preventDefault();
         // dispatch(addStudentThunk({firstName, lastName, email}));
+        dispatch(updateStudentThunk({firstName, lastName, email, id: props.student.id}));
 
         // clears the fields after a student is added
         setFName('');

@@ -4,6 +4,7 @@ const _getCampuses = 'GET_CAMPUSES';
 const _getCampus = 'GET_CAMPUS';
 const _addCampus = 'ADD_CAMPUS';
 const _deleteCampus = 'DELETE_CAMPUS';
+const _updateCampus = 'UPDATE_CAMPUS';
 
 const getCampuses = data => {
     return {
@@ -19,16 +20,23 @@ const getCampus = data => {
     }
 }
 
-const addCampus = campusData => {
+const addCampus = data => {
     return {
         type: _addCampus,
-        campus: campusData
+        campus: data
     }
 }
 
 const deleteCampus = data => {
     return {
         type: _deleteCampus,
+        campus: data
+    }
+}
+
+const updateCampus = data => {
+    return {
+        type: _updateCampus,
         campus: data
     }
 }

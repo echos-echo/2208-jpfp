@@ -33,8 +33,7 @@ campusesRouter.get('/:campusId', async (req, res, next) => {
 campusesRouter.put('/:campusId', async (req, res, next) => {
     try {
         const campus = await Campus.findByPk(req.params.campusId);
-        campus.update(req.body);
-        res.send(campus);
+        res.send(await campus.update(req.body));
     } catch(err) {
         next(err);
     }

@@ -29,8 +29,7 @@ studentsRouter.get('/:studentId', async (req, res, next) => {
 studentsRouter.put('/:studentId', async (req, res, next) => {
     try {
         const student = await Student.findByPk(req.params.studentId);
-        await student.update(req.body);
-        res.send(student);
+        res.send(await student.update(req.body));
     } catch(err) {
         next(err);
     }

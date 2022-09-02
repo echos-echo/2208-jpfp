@@ -4795,7 +4795,13 @@ var EditStudent = function EditStudent(props) {
 
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault(); // dispatch(addStudentThunk({firstName, lastName, email}));
-    // clears the fields after a student is added
+
+    dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.updateStudentThunk)({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      id: props.student.id
+    })); // clears the fields after a student is added
 
     setFName('');
     setLName('');
@@ -5012,6 +5018,7 @@ var _getCampuses = 'GET_CAMPUSES';
 var _getCampus = 'GET_CAMPUS';
 var _addCampus = 'ADD_CAMPUS';
 var _deleteCampus = 'DELETE_CAMPUS';
+var _updateCampus = 'UPDATE_CAMPUS';
 
 var getCampuses = function getCampuses(data) {
   return {
@@ -5027,16 +5034,23 @@ var getCampus = function getCampus(data) {
   };
 };
 
-var addCampus = function addCampus(campusData) {
+var addCampus = function addCampus(data) {
   return {
     type: _addCampus,
-    campus: campusData
+    campus: data
   };
 };
 
 var deleteCampus = function deleteCampus(data) {
   return {
     type: _deleteCampus,
+    campus: data
+  };
+};
+
+var updateCampus = function updateCampus(data) {
+  return {
+    type: _updateCampus,
     campus: data
   };
 };
@@ -5229,7 +5243,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "deleteStudentThunk": () => (/* binding */ deleteStudentThunk),
 /* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk),
 /* harmony export */   "getOneStudentThunk": () => (/* binding */ getOneStudentThunk),
-/* harmony export */   "studentsReducer": () => (/* binding */ studentsReducer)
+/* harmony export */   "studentsReducer": () => (/* binding */ studentsReducer),
+/* harmony export */   "updateStudentThunk": () => (/* binding */ updateStudentThunk)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -5264,6 +5279,7 @@ var _getStudents = 'GET_STUDENTS';
 var _getStudent = 'GET_STUDENT';
 var _addStudent = 'ADD_STUDENT';
 var _deleteStudent = 'DELETE_STUDENT';
+var _updateStudent = 'UPDATE_STUDENT';
 
 var getStudents = function getStudents(data) {
   return {
@@ -5289,6 +5305,13 @@ var addStudent = function addStudent(data) {
 var deleteStudent = function deleteStudent(data) {
   return {
     type: _deleteStudent,
+    student: data
+  };
+};
+
+var updateStudent = function updateStudent(data) {
+  return {
+    type: _updateStudent,
     student: data
   };
 };
@@ -5401,6 +5424,33 @@ var deleteStudentThunk = function deleteStudentThunk(studentData) {
     };
   }();
 };
+var updateStudentThunk = function updateStudentThunk(studentData) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/students/".concat(studentData.id), studentData).then(function (res) {
+                return dispatch(updateStudent(res.data));
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+};
 var studentsReducer = function studentsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -5421,14 +5471,19 @@ var studentsReducer = function studentsReducer() {
         students: [].concat(_toConsumableArray(state.students), [action.student])
       });
 
+    case _updateStudent:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        student: action.student
+      });
+
     case _deleteStudent:
-      var index = state.students.findIndex(function (student) {
+      var indexToDelete = state.students.findIndex(function (student) {
         return student.id === action.student.id;
       });
 
       var newStudents = _toConsumableArray(state.students);
 
-      newStudents.splice(index, 1);
+      newStudents.splice(indexToDelete, 1);
       return _objectSpread(_objectSpread({}, state), {}, {
         students: newStudents
       });
