@@ -9,11 +9,15 @@ export const AddCampus = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        dispatch(addCampusThunk({name, address}));
 
-        // clears the fields after a campus is added
-        setName('');
-        setAddress('');
+        if (name.length < 1 || address.length < 1) {
+            window.alert('Please fill in all required fields');
+        } else {
+            dispatch(addCampusThunk({name, address}));
+            // clears the fields after a campus is added
+            setName('');
+            setAddress('');
+        }
     }
 
     const handleChange = prop => event => {
@@ -31,7 +35,7 @@ export const AddCampus = () => {
     }, [name, address]);
 
     return (
-        <div>
+        <div className="form">
             <form onSubmit={handleSubmit}>
                 <label htmlFor='name'>Name: </label>
                 <input type='text' name='name' value={name} onChange={handleChange('name')}/>

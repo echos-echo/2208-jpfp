@@ -55,30 +55,32 @@ export const AllStudents = () => {
     }, [sort]);
 
     return (
-        <div>
-            <AddStudent/><hr/>
-            <label htmlFor='filter-options'>Filter students by:</label>
-            <select name='filter-options' onChange={handleOptions} defaultValue='none'>
-                <option value='LName_up'>Last Name - Ascending</option>
-                <option value='LName_down'>Last Name - Descending</option>
-                <option value='gpa_up'>GPA - Ascending</option>
-                <option value='gpa_down'>GPA - Descending</option>
-                <option value='none'>No sorting</option>
-            </select>
-            { studentList ?
-                studentList.map(student => 
-                    <div key={student.id}>
-                        <button onClick={() => dispatch(deleteStudentThunk(student))}>X</button>
-                        <Link to={`/students/${student.id}`}>
-                        <img src={student.imageUrl} alt={student.imageUrl}/>
-                        <h2>{student.firstName + ' ' + student.lastName}</h2>
-                        </Link>
-                        <p>{student.email}</p>
-                        <p>GPA: {student.gpa}</p>
-                        <hr/>
-                    </div>)
-                : 'Loading students...'
-            }
+        <div className="all-students">
+            <AddStudent className='column-form'/><hr/>
+            <div className="column-list">
+                <label htmlFor='filter-options'>Filter students by:</label>
+                <select name='filter-options' onChange={handleOptions} defaultValue='none'>
+                    <option value='LName_up'>Last Name - Ascending</option>
+                    <option value='LName_down'>Last Name - Descending</option>
+                    <option value='gpa_up'>GPA - Ascending</option>
+                    <option value='gpa_down'>GPA - Descending</option>
+                    <option value='none'>No sorting</option>
+                </select>
+                { studentList ?
+                    studentList.map(student => 
+                        <div key={student.id} className='divInListing'>
+                            <button onClick={() => dispatch(deleteStudentThunk(student))}>X</button>
+                            <Link to={`/students/${student.id}`}>
+                            <img src={student.imageUrl} alt={student.imageUrl}/>
+                            <h2>{student.firstName + ' ' + student.lastName}</h2>
+                            </Link>
+                            <p>{student.email}</p>
+                            <p>GPA: {student.gpa}</p>
+                            <hr/>
+                        </div>)
+                    : 'Loading students...'
+                }
+            </div>
         </div>
     )
 }

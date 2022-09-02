@@ -1,0 +1,54 @@
+* {
+    background-color: aqua;
+    margin: 0px;
+}
+
+body {
+    margin: 10px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 8px;
+    padding: 3%;
+}
+
+#root {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* class for divs AllCampuses and AllStudents */
+.all-students, .all-campuses {
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    width: 50vw;
+}
+
+.divInListing {
+    margin: 15px;
+    padding: 10px;
+    width: 40vw;
+}
+
+.divInListing, .divInListing * {
+    background-color: rgb(255, 255, 255);
+}
+
+.form, .form * {
+    margin: 12px;
+}
+
+.column-form {
+    position: sticky;
+}
+
+.form {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+}

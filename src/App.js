@@ -19,7 +19,6 @@ function App(){
                     <Link to='/campuses'>Our Campuses</Link>
                 </nav>
                 <main>
-                    <h1>Welcome to our School</h1>
                     <Routes>
                         {/* temporary path; may add a homepage later on */}
                         <Route exact path='/' element={<AllStudents/>}/>

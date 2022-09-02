@@ -35,29 +35,31 @@ export const AllCampuses = () => {
     }, [sort]);
 
     return (
-        <div>
-            <AddCampus/><hr/>
-            <label htmlFor='filter-options'>Filter campuses by:</label>
-            <select name='filter-options' onChange={handleOptions} defaultValue='none'>
-                <option value='enrolled_up'>Number of Students - Ascending</option>
-                <option value='enrolled_down'>Number of Students - Descending</option>
-                <option value='none'>No sorting</option>
-            </select>
-            { campusList ?
-                campusList.map(campus => 
-                    <div key={campus.id}>
-                        <button onClick={() => dispatch(deleteCampusThunk(campus))}>X</button>
-                        <Link to={`/campuses/${campus.id}`}>
-                        <img src={campus.imageUrl} alt={campus.imageUrl}/>
-                        <h2>{campus.name}</h2>
-                        </Link>
-                        <p>{campus.address}</p>
-                        <p>{campus.description}</p>
-                        <p><i>{campus.students ? `${campus.students.length} student(s) attend this campus` : '0 student(s) attend this campus'}</i></p>
-                        <hr/>
-                    </div>)
-                : 'Loading campuses...'
-            }
+        <div className="all-campuses">
+            <AddCampus className='column-form'/>
+            <div className="column-list">
+                <label htmlFor='filter-options'>Filter campuses by:</label>
+                <select name='filter-options' onChange={handleOptions} defaultValue='none'>
+                    <option value='enrolled_up'>Number of Students - Ascending</option>
+                    <option value='enrolled_down'>Number of Students - Descending</option>
+                    <option value='none'>No sorting</option>
+                </select>
+                { campusList ?
+                    campusList.map(campus => 
+                        <div key={campus.id} className='divInListing'>
+                            <button onClick={() => dispatch(deleteCampusThunk(campus))}>X</button>
+                            <Link to={`/campuses/${campus.id}`}>
+                            <img src={campus.imageUrl} alt={campus.imageUrl}/>
+                            <h2>{campus.name}</h2>
+                            </Link>
+                            <p>{campus.address}</p>
+                            <p>{campus.description}</p>
+                            <p><i>{campus.students ? `${campus.students.length} student(s) attend this campus` : '0 student(s) attend this campus'}</i></p>
+                            <hr/>
+                        </div>)
+                    : 'Loading campuses...'
+                }
+            </div>
         </div>
     )
 }

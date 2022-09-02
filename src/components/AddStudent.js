@@ -10,12 +10,16 @@ export const AddStudent = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        dispatch(addStudentThunk({firstName, lastName, email}));
-
-        // clears the fields after a student is added
-        setFName('');
-        setLName('');
-        setEmail('');
+        if (firstName.length < 1 || lastName.length < 1 || email.length < 1) {
+            window.alert('Please fill in all required fields');
+        } else {
+            dispatch(addStudentThunk({firstName, lastName, email}));
+    
+            // clears the fields after a student is added
+            setFName('');
+            setLName('');
+            setEmail('');
+        }
     }
 
     const handleChange = prop => event => {
@@ -36,7 +40,7 @@ export const AddStudent = () => {
     }, [firstName, lastName, email]);
 
     return (
-        <div>
+        <div className="form">
             <form onSubmit={handleSubmit}>
                 <label htmlFor='firstName'>First Name: </label>
                 <input type='text' name='firstName' value={firstName} onChange={handleChange('firstName')}/>
