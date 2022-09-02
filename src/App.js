@@ -4,6 +4,7 @@ import { AllStudents } from "./components/AllStudents";
 import { SingleStudent } from "./components/SingleStudent";
 import { SingleCampus } from "./components/SingleCampus";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { NotFound } from "./components/NotFound";
 
 function App(){
 
@@ -25,6 +26,7 @@ function App(){
                         <Route path='/students/:studentId' element={<SingleStudent/>}/>
                         <Route path='/campuses' element={<AllCampuses/>}/>
                         <Route path='/campuses/:campusId' element={<SingleCampus/>}/>
+                        <Route path='*' element={<NotFound/>}/>
                     </Routes>
                 </main>
             </div>

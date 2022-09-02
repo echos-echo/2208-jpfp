@@ -8,20 +8,20 @@ import { EditStudent } from "./EditStudent";
 export const SingleStudent = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    const student = useSelector(state => state.studentsReducer.student)
+    const student = useSelector(state => state.studentsReducer.student);
     const campuses = useSelector(state => state.campusesReducer.campuses);
+    const students = useSelector(state => state.studentsReducer.students);
 
     // .find() would cause an error on the first render, hence ternary
     const thisStudentsCampus = (campuses && student) ? campuses.find(campus => campus.id === student.campusId) : null;
 
-    console.dir(student);
-    console.dir(thisStudentsCampus);
-
     React.useEffect(() => {
-        dispatch(getOneStudentThunk(params.studentId));
-        // need to use allcampuses here too. accessing this page
-        // does not guarantee that campuses is already in the store
-        dispatch(getAllCampusesThunk());
+        if (!isNaN(params.studentId)) {
+            dispatch(getOneStudentThunk(params.studentId));
+            // need to use allcampuses here too. accessing this page
+            // does not guarantee that campuses is already in the store
+            dispatch(getAllCampusesThunk());
+        }
     }, []);
 
     return (
@@ -38,7 +38,7 @@ export const SingleStudent = () => {
                         <h3>Campus: {thisStudentsCampus ? <Link to={`/campuses/${thisStudentsCampus.id}`}>{thisStudentsCampus.name}</Link> : 'Currently not enrolled'}</h3>
                         <hr/>
                     </div>
-                : 'Loading student...'
+                : students.findIndex(currStudent => currStudent.id === parseInt(params.studentId)) === -1 ? 'Student does not exist' : 'Loading student...'
             }
         </div>
     )
