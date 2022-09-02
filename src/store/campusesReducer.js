@@ -7,6 +7,7 @@ const _addCampus = 'ADD_CAMPUS';
 const _deleteCampus = 'DELETE_CAMPUS';
 const _updateCampus = 'UPDATE_CAMPUS';
 const _clearCampus = 'CLEAR_CAMPUS';
+const _removeStudent = 'REMOVE_STUDENT';
 
 // ***ACTION CREATORS***
 const getCampuses = data => {
@@ -41,6 +42,13 @@ const updateCampus = data => {
     return {
         type: _updateCampus,
         campus: data
+    }
+}
+
+export const removeStudent = data => {
+    return {
+        type: _removeStudent,
+        student: data
     }
 }
 
@@ -110,6 +118,11 @@ export const campusesReducer = (state = {}, action) => {
             return { ...state, campuses: newCampuses };
         case _clearCampus:
             return { ...state, campus: action.campus };
+        case _removeStudent:
+            const toRemoveIndex = state.campus.students.findIndex(student => student.id === action.student.id);
+            const newStudents = [...state.campus.students];
+            newStudents.splice(toRemoveIndex, 1);
+            return { ...state, campus: { ...state.campus, students: newStudents}};
         default:
             return state;
     }

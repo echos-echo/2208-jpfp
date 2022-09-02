@@ -5065,14 +5065,12 @@ var SingleCampus = function SingleCampus() {
   });
   console.dir(campus);
 
-  var handleUnregister = function handleUnregister(studentId) {
+  var handleUnregister = function handleUnregister(student) {
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_3__.removeFromCampusThunk)({
       campusId: null,
-      id: studentId
+      id: student.id
     }));
-    campus.students.splice(campus.students.findIndex(function (student) {
-      return student.id === studentId;
-    }), 1);
+    dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.removeStudent)(student));
   };
 
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
@@ -5095,7 +5093,7 @@ var SingleCampus = function SingleCampus() {
       to: "/students/".concat(student.id)
     }, student.firstName + ' ' + student.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       onClick: function onClick() {
-        return handleUnregister(student.id);
+        return handleUnregister(student);
       }
     }, "Unregister ", student.firstName, " ", student.lastName));
   })) : 'This campus currently has no students enrolled.', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : campuses.findIndex(function (currCampus) {
@@ -5187,6 +5185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "deleteCampusThunk": () => (/* binding */ deleteCampusThunk),
 /* harmony export */   "getAllCampusesThunk": () => (/* binding */ getAllCampusesThunk),
 /* harmony export */   "getCampusThunk": () => (/* binding */ getCampusThunk),
+/* harmony export */   "removeStudent": () => (/* binding */ removeStudent),
 /* harmony export */   "updateCampusThunk": () => (/* binding */ updateCampusThunk)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -5224,7 +5223,8 @@ var _getCampus = 'GET_CAMPUS';
 var _addCampus = 'ADD_CAMPUS';
 var _deleteCampus = 'DELETE_CAMPUS';
 var _updateCampus = 'UPDATE_CAMPUS';
-var _clearCampus = 'CLEAR_CAMPUS'; // ***ACTION CREATORS***
+var _clearCampus = 'CLEAR_CAMPUS';
+var _removeStudent = 'REMOVE_STUDENT'; // ***ACTION CREATORS***
 
 var getCampuses = function getCampuses(data) {
   return {
@@ -5261,6 +5261,12 @@ var updateCampus = function updateCampus(data) {
   };
 };
 
+var removeStudent = function removeStudent(data) {
+  return {
+    type: _removeStudent,
+    student: data
+  };
+};
 var clearCampus = function clearCampus() {
   return {
     type: _clearCampus,
@@ -5444,6 +5450,20 @@ var campusesReducer = function campusesReducer() {
     case _clearCampus:
       return _objectSpread(_objectSpread({}, state), {}, {
         campus: action.campus
+      });
+
+    case _removeStudent:
+      var toRemoveIndex = state.campus.students.findIndex(function (student) {
+        return student.id === action.student.id;
+      });
+
+      var newStudents = _toConsumableArray(state.campus.students);
+
+      newStudents.splice(toRemoveIndex, 1);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        campus: _objectSpread(_objectSpread({}, state.campus), {}, {
+          students: newStudents
+        })
       });
 
     default:
