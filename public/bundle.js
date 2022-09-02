@@ -4890,6 +4890,7 @@ var SingleCampus = function SingleCampus() {
       campusId: null,
       id: studentId
     }));
+    dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getCampusThunk)(params.campusId));
   };
 
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
@@ -5023,12 +5024,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+ // ***ACTION TYPES***
 
 var _getCampuses = 'GET_CAMPUSES';
 var _getCampus = 'GET_CAMPUS';
 var _addCampus = 'ADD_CAMPUS';
 var _deleteCampus = 'DELETE_CAMPUS';
-var _updateCampus = 'UPDATE_CAMPUS';
+var _updateCampus = 'UPDATE_CAMPUS'; // ***ACTION CREATORS***
 
 var getCampuses = function getCampuses(data) {
   return {
@@ -5063,7 +5065,8 @@ var updateCampus = function updateCampus(data) {
     type: _updateCampus,
     campus: data
   };
-};
+}; // ***THUNKS***
+
 
 var getAllCampusesThunk = function getAllCampusesThunk() {
   return /*#__PURE__*/function () {
@@ -5200,7 +5203,8 @@ var updateCampusThunk = function updateCampusThunk(campusData) {
       return _ref5.apply(this, arguments);
     };
   }();
-};
+}; // ***REDUCER FOR CAMPUSES***
+
 var campusesReducer = function campusesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;

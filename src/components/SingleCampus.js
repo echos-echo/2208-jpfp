@@ -1,17 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getCampusThunk } from "../store/campusesReducer";
+import { getCampusThunk, updateCampusThunk } from "../store/campusesReducer";
 import { removeFromCampusThunk } from "../store/studentsReducer";
 import { EditCampus } from "./EditCampus";
 
 export const SingleCampus = () => {
     const dispatch = useDispatch();
     const params = useParams();
-    const campus = useSelector(state => state.campusesReducer.campus)
+    const campus = useSelector(state => state.campusesReducer.campus);
 
     const handleUnregister = studentId => {
-        dispatch(removeFromCampusThunk({campusId: null, id: studentId}))
+        dispatch(removeFromCampusThunk({campusId: null, id: studentId}));
+        dispatch(getCampusThunk(params.campusId));
     }
 
     React.useEffect(() => {

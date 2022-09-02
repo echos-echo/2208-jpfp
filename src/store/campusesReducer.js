@@ -1,11 +1,13 @@
 import Axios from "axios";
 
+// ***ACTION TYPES***
 const _getCampuses = 'GET_CAMPUSES';
 const _getCampus = 'GET_CAMPUS';
 const _addCampus = 'ADD_CAMPUS';
 const _deleteCampus = 'DELETE_CAMPUS';
 const _updateCampus = 'UPDATE_CAMPUS';
 
+// ***ACTION CREATORS***
 const getCampuses = data => {
     return {
         type: _getCampuses,
@@ -41,6 +43,7 @@ const updateCampus = data => {
     }
 }
 
+// ***THUNKS***
 export const getAllCampusesThunk = () => {
     return async dispatch => {
         await Axios.get('/api/campuses')
@@ -81,6 +84,7 @@ export const updateCampusThunk = campusData => {
     }
 }
 
+// ***REDUCER FOR CAMPUSES***
 export const campusesReducer = (state = {}, action) => {
     switch (action.type) {
         case _getCampuses:
