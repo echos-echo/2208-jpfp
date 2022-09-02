@@ -11,11 +11,6 @@ export const EditStudent = props => {
     const handleSubmit = event => {
         event.preventDefault();
         dispatch(updateStudentThunk({firstName, lastName, email, id: props.student.id}));
-
-        // clears the fields after a student is updated
-        setFName('');
-        setLName('');
-        setEmail('');
     }
 
     const handleChange = prop => event => {

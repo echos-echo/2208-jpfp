@@ -10,10 +10,6 @@ export const EditCampus = props => {
     const handleSubmit = event => {
         event.preventDefault();
         dispatch(updateCampusThunk({name, address, id: props.campus.id}));
-
-        // clears the fields after a campus is updated
-        setName('');
-        setAddress('');
     }
 
     const handleChange = prop => event => {

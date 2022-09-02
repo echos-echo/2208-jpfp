@@ -4705,10 +4705,7 @@ var EditCampus = function EditCampus(props) {
       name: name,
       address: address,
       id: props.campus.id
-    })); // clears the fields after a campus is updated
-
-    setName('');
-    setAddress('');
+    }));
   };
 
   var handleChange = function handleChange(prop) {
@@ -4804,11 +4801,7 @@ var EditStudent = function EditStudent(props) {
       lastName: lastName,
       email: email,
       id: props.student.id
-    })); // clears the fields after a student is updated
-
-    setFName('');
-    setLName('');
-    setEmail('');
+    }));
   };
 
   var handleChange = function handleChange(prop) {
