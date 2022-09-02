@@ -4628,23 +4628,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var _store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/studentsReducer */ "./src/store/studentsReducer.js");
 /* harmony import */ var _AddStudent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AddStudent */ "./src/components/AddStudent.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 
 
 var AllStudents = function AllStudents() {
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(); // note to self: need to access state.studentsReducer.students
-  // because the combineReducer in configureStore seems to store the state
-  // in the individual reducer slice
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
-  var studentList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.studentsReducer.students;
-  });
+  })),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      studentList = _React$useState2[0],
+      setStudentList = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState('none'),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      sort = _React$useState4[0],
+      setSort = _React$useState4[1];
 
   var handleOptions = function handleOptions(event) {
-    console.dir(event.target.value);
-
     switch (event.target.value) {
       case 'LName_up':
         studentList.sort(function (a, b) {
@@ -4656,9 +4672,7 @@ var AllStudents = function AllStudents() {
             return 0;
           }
         });
-        console.dir(studentList.map(function (student) {
-          return student.lastName;
-        }));
+        setStudentList(studentList);
         break;
 
       case 'LName_down':
@@ -4671,29 +4685,25 @@ var AllStudents = function AllStudents() {
             return 0;
           }
         });
-        console.dir(studentList.map(function (student) {
-          return student.lastName;
-        }));
+        setStudentList(studentList);
         break;
 
       case 'gpa_up':
         studentList.sort(function (a, b) {
           return a.gpa - b.gpa;
         });
-        console.dir(studentList.map(function (student) {
-          return student.gpa;
-        }));
+        setStudentList(studentList);
         break;
 
       case 'gpa_down':
         studentList.sort(function (a, b) {
           return b.gpa - a.gpa;
         });
-        console.dir(studentList.map(function (student) {
-          return student.gpa;
-        }));
+        setStudentList(studentList);
         break;
     }
+
+    setSort(event.target.value);
   };
 
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
@@ -4714,7 +4724,9 @@ var AllStudents = function AllStudents() {
     value: "gpa_up"
   }, "GPA - Ascending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "gpa_down"
-  }, "GPA - Descending")), studentList ? studentList.map(function (student) {
+  }, "GPA - Descending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "none"
+  }, "No sorting")), studentList ? studentList.map(function (student) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: student.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {

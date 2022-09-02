@@ -6,13 +6,10 @@ import { AddStudent } from "./AddStudent";
 
 export const AllStudents = () => {
     const dispatch = useDispatch();
-    // note to self: need to access state.studentsReducer.students
-    // because the combineReducer in configureStore seems to store the state
-    // in the individual reducer slice
-    const studentList = useSelector(state => state.studentsReducer.students);
+    const [studentList, setStudentList] = React.useState(useSelector(state => state.studentsReducer.students));
+    const [sort, setSort] = React.useState('none');
 
     const handleOptions = event => {
-        console.dir(event.target.value);
         switch (event.target.value) {
             case 'LName_up':
                 studentList.sort((a, b) => {
@@ -24,7 +21,7 @@ export const AllStudents = () => {
                         return 0;
                     }
                 });
-                console.dir(studentList.map(student => student.lastName))
+                setStudentList(studentList);
                 break;
             case 'LName_down':
                 studentList.sort((a, b) => {
@@ -36,17 +33,18 @@ export const AllStudents = () => {
                         return 0;
                     }
                 });
-                console.dir(studentList.map(student => student.lastName));
+                setStudentList(studentList);
                 break;
             case 'gpa_up':
                 studentList.sort((a, b) => a.gpa - b.gpa);
-                console.dir(studentList.map(student => student.gpa));
+                setStudentList(studentList);
                 break;
             case 'gpa_down':
                 studentList.sort((a, b) => b.gpa - a.gpa);
-                console.dir(studentList.map(student => student.gpa));
+                setStudentList(studentList);
                 break;
         }
+        setSort(event.target.value);
     }
 
     React.useEffect(() => {
@@ -63,6 +61,7 @@ export const AllStudents = () => {
                 <option value='LName_down'>Last Name - Descending</option>
                 <option value='gpa_up'>GPA - Ascending</option>
                 <option value='gpa_down'>GPA - Descending</option>
+                <option value='none'>No sorting</option>
             </select>
             { studentList ?
                 studentList.map(student => 
