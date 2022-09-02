@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getAllCampusesThunk, getCampusThunk, updateCampusThunk } from "../store/campusesReducer";
+import { getAllCampusesThunk, getCampusThunk } from "../store/campusesReducer";
 import { removeFromCampusThunk } from "../store/studentsReducer";
 import { EditCampus } from "./EditCampus";
 
@@ -10,10 +10,11 @@ export const SingleCampus = () => {
     const params = useParams();
     const campus = useSelector(state => state.campusesReducer.campus);
     const campuses = useSelector(state => state.campusesReducer.campuses || []);
+    console.dir(campus)
 
     const handleUnregister = studentId => {
         dispatch(removeFromCampusThunk({campusId: null, id: studentId}));
-        dispatch(getCampusThunk(params.campusId));
+        campus.students.splice(campus.students.findIndex(student => student.id === studentId), 1);
     }
 
     React.useEffect(() => {
@@ -33,6 +34,7 @@ export const SingleCampus = () => {
                     <p>{campus.address}</p>
                     <p>{campus.description}</p>
                     <h3>Students Currently Enrolled:</h3>
+                    {console.log('rendering...')}
                     {campus.students.length > 0 ? 
                         <ul>
                             {campus.students.map(student => 
@@ -40,14 +42,13 @@ export const SingleCampus = () => {
                                 <Link to={`/students/${student.id}`}>
                                     {student.firstName + ' ' + student.lastName}
                                 </Link>
-                                <button onClick={() => handleUnregister(student.id)}>Unregister {student.firstName} {student.lastName}</button>
+                                <button onClick={() => handleUnregister(student.id) }>Unregister {student.firstName} {student.lastName}</button>
                             </li>)}
                         </ul> 
                         : 'This campus currently has no students enrolled.' }
                     <hr/>
                 </div>
                 : campuses.findIndex(currCampus => currCampus.id === parseInt(params.campusId)) !== -1 ? 'Loading campus information...': 'Campus does not exist' 
-                
             }
         </div>
     )

@@ -87,7 +87,7 @@ export const deleteCampusThunk = campusData => {
 export const updateCampusThunk = campusData => {
     return async dispatch => {
         await Axios.put(`/api/campuses/${campusData.id}`, campusData)
-            .then(res => {dispatch(updateCampus(res.data)); console.dir(res.data)})
+            .then(res => dispatch(updateCampus(res.data)))
             .catch(err => console.error(err));
     }
 }

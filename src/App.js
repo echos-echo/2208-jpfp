@@ -5,6 +5,7 @@ import { SingleStudent } from "./components/SingleStudent";
 import { SingleCampus } from "./components/SingleCampus";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { NotFound } from "./components/NotFound";
+import { useSelector } from "react-redux";
 
 function App(){
 
