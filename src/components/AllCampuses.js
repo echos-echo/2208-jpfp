@@ -36,7 +36,7 @@ export const AllCampuses = () => {
 
     return (
         <div className="all-campuses">
-            <AddCampus className='column-form'/>
+            <AddCampus/>
             <div className="column-list">
                 <label htmlFor='filter-options'>Filter campuses by:</label>
                 <select name='filter-options' onChange={handleOptions} defaultValue='none'>
@@ -47,7 +47,7 @@ export const AllCampuses = () => {
                 { campusList ?
                     campusList.map(campus => 
                         <div key={campus.id} className='divInListing'>
-                            <button onClick={() => dispatch(deleteCampusThunk(campus))}>X</button>
+                            <button onClick={() => dispatch(deleteCampusThunk(campus))} className='delete-button'>X</button>
                             <Link to={`/campuses/${campus.id}`}>
                             <img src={campus.imageUrl} alt={campus.imageUrl}/>
                             <h2>{campus.name}</h2>

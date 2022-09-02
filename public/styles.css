@@ -7,7 +7,14 @@ body {
     margin: 10px;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+}
+
 nav {
+    background-color: yellow;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -22,33 +29,69 @@ nav {
 
 /* class for divs AllCampuses and AllStudents */
 .all-students, .all-campuses {
-    justify-content: space-around;
+    justify-content: space-between;
     display: flex;
     flex-direction: row;
-    width: 50vw;
 }
 
 .divInListing {
-    margin: 15px;
-    padding: 10px;
-    width: 40vw;
+    margin: 3em;
+    padding: 2.5em;
+    display: flex;
+    flex-direction: column;
 }
 
 .divInListing, .divInListing * {
     background-color: rgb(255, 255, 255);
 }
 
-.form, .form * {
-    margin: 12px;
+.divInListing * {
+    margin: 8px;
 }
-
-.column-form {
-    position: sticky;
+.divInListing a {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
 .form {
-    height: 80vh;
+    background-color: pink;
+}
+
+.column-list {
+    background-color: peachpuff;
+}
+
+.form, .column-list {
+    justify-content: center;
+    padding: 2em;
+    width: 50%;
+}
+
+form {
+    position: fixed;
+    background-color: pink;
+    margin-top: 1em;
+    padding: 3em;
+    width: 20%;
     display: flex;
     flex-direction: column;
     border: 3px solid black;
+}
+
+.delete-button {
+    background-color: maroon;
+    color: white;
+}
+
+img {
+    align-content: center;
+}
+
+.all-campuses form {
+    left: 15%;
+}
+
+.all-students form {
+    right: 15%;
 }

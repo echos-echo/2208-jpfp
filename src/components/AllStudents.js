@@ -56,7 +56,6 @@ export const AllStudents = () => {
 
     return (
         <div className="all-students">
-            <AddStudent className='column-form'/><hr/>
             <div className="column-list">
                 <label htmlFor='filter-options'>Filter students by:</label>
                 <select name='filter-options' onChange={handleOptions} defaultValue='none'>
@@ -69,7 +68,7 @@ export const AllStudents = () => {
                 { studentList ?
                     studentList.map(student => 
                         <div key={student.id} className='divInListing'>
-                            <button onClick={() => dispatch(deleteStudentThunk(student))}>X</button>
+                            <button onClick={() => dispatch(deleteStudentThunk(student))} className='delete-button'>X</button>
                             <Link to={`/students/${student.id}`}>
                             <img src={student.imageUrl} alt={student.imageUrl}/>
                             <h2>{student.firstName + ' ' + student.lastName}</h2>
@@ -81,6 +80,7 @@ export const AllStudents = () => {
                     : 'Loading students...'
                 }
             </div>
+            <AddStudent/>
         </div>
     )
 }

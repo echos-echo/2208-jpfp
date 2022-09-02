@@ -12,7 +12,7 @@ function App(){
 
     return(
         <BrowserRouter>
-            <div>
+            <div className="content">
                 <nav>
                     <Link to='/students'>Our Students</Link>
                     <br/>
