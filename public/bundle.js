@@ -4641,11 +4641,80 @@ var AllStudents = function AllStudents() {
   var studentList = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.studentsReducer.students;
   });
+
+  var handleOptions = function handleOptions(event) {
+    console.dir(event.target.value);
+
+    switch (event.target.value) {
+      case 'LName_up':
+        studentList.sort(function (a, b) {
+          if (a.lastName < b.lastName) {
+            return 1;
+          } else if (a.lastName > b.lastName) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        console.dir(studentList.map(function (student) {
+          return student.lastName;
+        }));
+        break;
+
+      case 'LName_down':
+        studentList.sort(function (a, b) {
+          if (a.lastName > b.lastName) {
+            return 1;
+          } else if (a.lastName < b.lastName) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        console.dir(studentList.map(function (student) {
+          return student.lastName;
+        }));
+        break;
+
+      case 'gpa_up':
+        studentList.sort(function (a, b) {
+          return a.gpa - b.gpa;
+        });
+        console.dir(studentList.map(function (student) {
+          return student.gpa;
+        }));
+        break;
+
+      case 'gpa_down':
+        studentList.sort(function (a, b) {
+          return b.gpa - a.gpa;
+        });
+        console.dir(studentList.map(function (student) {
+          return student.gpa;
+        }));
+        break;
+    }
+  };
+
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.getAllStudentsThunk)());
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.clearStudent)());
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_AddStudent__WEBPACK_IMPORTED_MODULE_3__.AddStudent, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), studentList ? studentList.map(function (student) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_AddStudent__WEBPACK_IMPORTED_MODULE_3__.AddStudent, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "filter-options"
+  }, "Filter students by:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "filter-options",
+    onChange: handleOptions,
+    defaultValue: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "LName_up"
+  }, "Last Name - Ascending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "LName_down"
+  }, "Last Name - Descending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "gpa_up"
+  }, "GPA - Ascending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "gpa_down"
+  }, "GPA - Descending")), studentList ? studentList.map(function (student) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: student.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
