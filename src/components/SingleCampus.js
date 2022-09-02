@@ -9,7 +9,7 @@ export const SingleCampus = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const campus = useSelector(state => state.campusesReducer.campus);
-    const campuses = useSelector(state => state.campusesReducer.campuses);
+    const campuses = useSelector(state => state.campusesReducer.campuses || []);
 
     const handleUnregister = studentId => {
         dispatch(removeFromCampusThunk({campusId: null, id: studentId}));

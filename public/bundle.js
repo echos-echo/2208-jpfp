@@ -4912,7 +4912,7 @@ var SingleCampus = function SingleCampus() {
     return state.campusesReducer.campus;
   });
   var campuses = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.campusesReducer.campuses;
+    return state.campusesReducer.campuses || [];
   });
 
   var handleUnregister = function handleUnregister(studentId) {
@@ -4988,7 +4988,7 @@ var SingleStudent = function SingleStudent() {
     return state.campusesReducer.campuses;
   });
   var students = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.studentsReducer.students;
+    return state.studentsReducer.students || [];
   }); // .find() would cause an error on the first render, hence ternary
 
   var thisStudentsCampus = campuses && student ? campuses.find(function (campus) {
@@ -5254,9 +5254,7 @@ var updateCampusThunk = function updateCampusThunk(campusData) {
 }; // ***REDUCER FOR CAMPUSES***
 
 var campusesReducer = function campusesReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    campuses: []
-  };
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
@@ -5590,9 +5588,7 @@ var removeFromCampusThunk = function removeFromCampusThunk(studentData) {
   }();
 };
 var studentsReducer = function studentsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    students: []
-  };
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {

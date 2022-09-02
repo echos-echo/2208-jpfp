@@ -93,7 +93,7 @@ export const updateCampusThunk = campusData => {
 }
 
 // ***REDUCER FOR CAMPUSES***
-export const campusesReducer = (state = {campuses: []}, action) => {
+export const campusesReducer = (state = {}, action) => {
     switch (action.type) {
         case _getCampuses:
             return { ...state, campuses: action.campuses };

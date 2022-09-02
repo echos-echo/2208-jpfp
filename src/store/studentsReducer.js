@@ -97,7 +97,7 @@ export const removeFromCampusThunk = studentData => {
     }
 }
 
-export const studentsReducer = (state = {students: []}, action) => {
+export const studentsReducer = (state = {}, action) => {
     switch (action.type) {
         case _getStudents:
             return { ...state, students: action.students };
