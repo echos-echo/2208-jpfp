@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getAllCampusesThunk } from "../store/campusesReducer";
-import { getOneStudentThunk } from "../store/studentsReducer";
+import { getAllStudentsThunk, getOneStudentThunk } from "../store/studentsReducer";
 import { EditStudent } from "./EditStudent";
 
 export const SingleStudent = () => {
@@ -26,7 +26,8 @@ export const SingleStudent = () => {
 
     return (
         <div>
-            { student ?
+            { 
+            student ?
                     <div key={student.id}>
                         <EditStudent student={student}/>
                         <Link to={`/students/${student.id}`}>
@@ -38,7 +39,7 @@ export const SingleStudent = () => {
                         <h3>Campus: {thisStudentsCampus ? <Link to={`/campuses/${thisStudentsCampus.id}`}>{thisStudentsCampus.name}</Link> : 'Currently not enrolled'}</h3>
                         <hr/>
                     </div>
-                : students.findIndex(currStudent => currStudent.id === parseInt(params.studentId)) === -1 ? 'Student does not exist' : 'Loading student...'
+                : students.findIndex(currStudent => currStudent.id === parseInt(params.studentId)) !== -1 ? 'Loading student...' : 'Student does not exist' 
             }
         </div>
     )

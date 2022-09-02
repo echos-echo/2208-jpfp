@@ -4591,6 +4591,7 @@ var AllCampuses = function AllCampuses() {
   });
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getAllCampusesThunk)());
+    dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.clearCampus)());
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_AddCampus__WEBPACK_IMPORTED_MODULE_3__.AddCampus, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), campusList ? campusList.map(function (campus) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -4642,6 +4643,7 @@ var AllStudents = function AllStudents() {
   });
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.getAllStudentsThunk)());
+    dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.clearStudent)());
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_AddStudent__WEBPACK_IMPORTED_MODULE_3__.AddStudent, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), studentList ? studentList.map(function (student) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -4909,6 +4911,9 @@ var SingleCampus = function SingleCampus() {
   var campus = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.campusesReducer.campus;
   });
+  var campuses = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.campusesReducer.campuses;
+  });
 
   var handleUnregister = function handleUnregister(studentId) {
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_3__.removeFromCampusThunk)({
@@ -4919,7 +4924,10 @@ var SingleCampus = function SingleCampus() {
   };
 
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
-    dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getCampusThunk)(params.campusId));
+    if (!isNaN(params.campusId)) {
+      dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getCampusThunk)(params.campusId));
+      dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getAllCampusesThunk)());
+    }
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, campus ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: campus.id
@@ -4938,7 +4946,9 @@ var SingleCampus = function SingleCampus() {
         return handleUnregister(student.id);
       }
     }, "Unregister ", student.firstName, " ", student.lastName));
-  })) : 'This campus currently has no students enrolled.', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : 'Loading campus information...');
+  })) : 'This campus currently has no students enrolled.', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : campuses.findIndex(function (currCampus) {
+    return currCampus.id === parseInt(params.campusId);
+  }) !== -1 ? 'Loading campus information...' : 'Campus does not exist');
 };
 
 /***/ }),
@@ -5005,7 +5015,7 @@ var SingleStudent = function SingleStudent() {
     to: "/campuses/".concat(thisStudentsCampus.id)
   }, thisStudentsCampus.name) : 'Currently not enrolled'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : students.findIndex(function (currStudent) {
     return currStudent.id === parseInt(params.studentId);
-  }) === -1 ? 'Student does not exist' : 'Loading student...');
+  }) !== -1 ? 'Loading student...' : 'Student does not exist');
 };
 
 /***/ }),
@@ -5021,6 +5031,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addCampusThunk": () => (/* binding */ addCampusThunk),
 /* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
+/* harmony export */   "clearCampus": () => (/* binding */ clearCampus),
 /* harmony export */   "deleteCampusThunk": () => (/* binding */ deleteCampusThunk),
 /* harmony export */   "getAllCampusesThunk": () => (/* binding */ getAllCampusesThunk),
 /* harmony export */   "getCampusThunk": () => (/* binding */ getCampusThunk),
@@ -5060,7 +5071,8 @@ var _getCampuses = 'GET_CAMPUSES';
 var _getCampus = 'GET_CAMPUS';
 var _addCampus = 'ADD_CAMPUS';
 var _deleteCampus = 'DELETE_CAMPUS';
-var _updateCampus = 'UPDATE_CAMPUS'; // ***ACTION CREATORS***
+var _updateCampus = 'UPDATE_CAMPUS';
+var _clearCampus = 'CLEAR_CAMPUS'; // ***ACTION CREATORS***
 
 var getCampuses = function getCampuses(data) {
   return {
@@ -5095,8 +5107,14 @@ var updateCampus = function updateCampus(data) {
     type: _updateCampus,
     campus: data
   };
-}; // ***THUNKS***
+};
 
+var clearCampus = function clearCampus() {
+  return {
+    type: _clearCampus,
+    campus: null
+  };
+}; // ***THUNKS***
 
 var getAllCampusesThunk = function getAllCampusesThunk() {
   return /*#__PURE__*/function () {
@@ -5236,7 +5254,9 @@ var updateCampusThunk = function updateCampusThunk(campusData) {
 }; // ***REDUCER FOR CAMPUSES***
 
 var campusesReducer = function campusesReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    campuses: []
+  };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
@@ -5270,6 +5290,11 @@ var campusesReducer = function campusesReducer() {
       newCampuses.splice(index, 1);
       return _objectSpread(_objectSpread({}, state), {}, {
         campuses: newCampuses
+      });
+
+    case _clearCampus:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        campus: action.campus
       });
 
     default:
@@ -5317,6 +5342,7 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addStudentThunk": () => (/* binding */ addStudentThunk),
+/* harmony export */   "clearStudent": () => (/* binding */ clearStudent),
 /* harmony export */   "deleteStudentThunk": () => (/* binding */ deleteStudentThunk),
 /* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk),
 /* harmony export */   "getOneStudentThunk": () => (/* binding */ getOneStudentThunk),
@@ -5358,6 +5384,7 @@ var _getStudent = 'GET_STUDENT';
 var _addStudent = 'ADD_STUDENT';
 var _deleteStudent = 'DELETE_STUDENT';
 var _updateStudent = 'UPDATE_STUDENT';
+var _clearStudent = 'CLEAR_STUDENT';
 
 var getStudents = function getStudents(data) {
   return {
@@ -5394,6 +5421,12 @@ var updateStudent = function updateStudent(data) {
   };
 };
 
+var clearStudent = function clearStudent() {
+  return {
+    type: _clearStudent,
+    student: null
+  };
+};
 var getAllStudentsThunk = function getAllStudentsThunk() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
@@ -5593,6 +5626,11 @@ var studentsReducer = function studentsReducer() {
       newStudents.splice(indexToDelete, 1);
       return _objectSpread(_objectSpread({}, state), {}, {
         students: newStudents
+      });
+
+    case _clearStudent:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        student: action.student
       });
 
     default:

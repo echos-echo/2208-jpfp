@@ -6,6 +6,7 @@ const _getCampus = 'GET_CAMPUS';
 const _addCampus = 'ADD_CAMPUS';
 const _deleteCampus = 'DELETE_CAMPUS';
 const _updateCampus = 'UPDATE_CAMPUS';
+const _clearCampus = 'CLEAR_CAMPUS';
 
 // ***ACTION CREATORS***
 const getCampuses = data => {
@@ -40,6 +41,13 @@ const updateCampus = data => {
     return {
         type: _updateCampus,
         campus: data
+    }
+}
+
+export const clearCampus = () => {
+    return {
+        type: _clearCampus,
+        campus: null
     }
 }
 
@@ -85,7 +93,7 @@ export const updateCampusThunk = campusData => {
 }
 
 // ***REDUCER FOR CAMPUSES***
-export const campusesReducer = (state = {}, action) => {
+export const campusesReducer = (state = {campuses: []}, action) => {
     switch (action.type) {
         case _getCampuses:
             return { ...state, campuses: action.campuses };
@@ -100,6 +108,8 @@ export const campusesReducer = (state = {}, action) => {
             const newCampuses = [...state.campuses];
             newCampuses.splice(index, 1);
             return { ...state, campuses: newCampuses };
+        case _clearCampus:
+            return { ...state, campus: action.campus };
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteCampusThunk, getAllCampusesThunk } from "../store/campusesReducer";
+import { clearCampus, deleteCampusThunk, getAllCampusesThunk } from "../store/campusesReducer";
 import { AddCampus } from "./AddCampus";
 
 export const AllCampuses = () => {
@@ -12,6 +12,7 @@ export const AllCampuses = () => {
 
     React.useEffect(() => {
         dispatch(getAllCampusesThunk());
+        dispatch(clearCampus());
     }, []);
 
     return (

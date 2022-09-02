@@ -5,6 +5,7 @@ const _getStudent = 'GET_STUDENT';
 const _addStudent = 'ADD_STUDENT';
 const _deleteStudent = 'DELETE_STUDENT';
 const _updateStudent = 'UPDATE_STUDENT';
+const _clearStudent = 'CLEAR_STUDENT';
 
 const getStudents = data => {
     return {
@@ -38,6 +39,13 @@ const updateStudent = data => {
     return {
         type: _updateStudent,
         student: data
+    }
+}
+
+export const clearStudent = () => {
+    return {
+        type: _clearStudent,
+        student: null
     }
 }
 
@@ -104,6 +112,8 @@ export const studentsReducer = (state = {students: []}, action) => {
             const newStudents = [...state.students];
             newStudents.splice(indexToDelete, 1);
             return { ...state, students: newStudents };
+        case _clearStudent:
+            return { ...state, student: action.student };
         default:
             return state;
     }

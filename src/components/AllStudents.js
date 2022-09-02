@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteStudentThunk, getAllStudentsThunk } from "../store/studentsReducer";
+import { clearStudent, deleteStudentThunk, getAllStudentsThunk } from "../store/studentsReducer";
 import { AddStudent } from "./AddStudent";
 
 export const AllStudents = () => {
@@ -13,6 +13,7 @@ export const AllStudents = () => {
 
     React.useEffect(() => {
         dispatch(getAllStudentsThunk());
+        dispatch(clearStudent());
     }, []);
 
     return (
