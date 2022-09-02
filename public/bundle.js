@@ -4867,10 +4867,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var _store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/campusesReducer */ "./src/store/campusesReducer.js");
-/* harmony import */ var _EditCampus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditCampus */ "./src/components/EditCampus.js");
+/* harmony import */ var _store_studentsReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/studentsReducer */ "./src/store/studentsReducer.js");
+/* harmony import */ var _EditCampus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./EditCampus */ "./src/components/EditCampus.js");
+
 
 
 
@@ -4878,17 +4880,24 @@ __webpack_require__.r(__webpack_exports__);
 
 var SingleCampus = function SingleCampus() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)();
+  var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)();
   var campus = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.campusesReducer.campus;
   });
+
+  var handleUnregister = function handleUnregister(studentId) {
+    dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_3__.removeFromCampusThunk)({
+      campusId: null,
+      id: studentId
+    }));
+  };
+
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getCampusThunk)(params.campusId));
   }, []);
-  console.dir(campus);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, campus ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: campus.id
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EditCampus__WEBPACK_IMPORTED_MODULE_3__.EditCampus, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EditCampus__WEBPACK_IMPORTED_MODULE_4__.EditCampus, {
     campus: campus
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: campus.imageUrl,
@@ -4896,9 +4905,13 @@ var SingleCampus = function SingleCampus() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, campus.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Students Currently Enrolled:"), campus.students.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, campus.students.map(function (student) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: student.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
       to: "/students/".concat(student.id)
-    }, student.firstName + ' ' + student.lastName));
+    }, student.firstName + ' ' + student.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return handleUnregister(student.id);
+      }
+    }, "Unregister ", student.firstName, " ", student.lastName));
   })) : 'This campus currently has no students enrolled.', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null)) : 'Loading campus information...');
 };
 
@@ -5273,6 +5286,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "deleteStudentThunk": () => (/* binding */ deleteStudentThunk),
 /* harmony export */   "getAllStudentsThunk": () => (/* binding */ getAllStudentsThunk),
 /* harmony export */   "getOneStudentThunk": () => (/* binding */ getOneStudentThunk),
+/* harmony export */   "removeFromCampusThunk": () => (/* binding */ removeFromCampusThunk),
 /* harmony export */   "studentsReducer": () => (/* binding */ studentsReducer),
 /* harmony export */   "updateStudentThunk": () => (/* binding */ updateStudentThunk)
 /* harmony export */ });
@@ -5478,6 +5492,33 @@ var updateStudentThunk = function updateStudentThunk(studentData) {
 
     return function (_x5) {
       return _ref5.apply(this, arguments);
+    };
+  }();
+};
+var removeFromCampusThunk = function removeFromCampusThunk(studentData) {
+  return /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/students/".concat(studentData.id), studentData).then(function (res) {
+                return dispatch(updateStudent(res.data));
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function (_x6) {
+      return _ref6.apply(this, arguments);
     };
   }();
 };

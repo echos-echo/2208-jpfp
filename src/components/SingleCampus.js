@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getCampusThunk } from "../store/campusesReducer";
+import { removeFromCampusThunk } from "../store/studentsReducer";
 import { EditCampus } from "./EditCampus";
 
 export const SingleCampus = () => {
@@ -9,10 +10,13 @@ export const SingleCampus = () => {
     const params = useParams();
     const campus = useSelector(state => state.campusesReducer.campus)
 
+    const handleUnregister = studentId => {
+        dispatch(removeFromCampusThunk({campusId: null, id: studentId}))
+    }
+
     React.useEffect(() => {
         dispatch(getCampusThunk(params.campusId));
     }, []);
-    console.dir(campus);
     return (
         <div>
             { campus ?
@@ -30,6 +34,7 @@ export const SingleCampus = () => {
                                 <Link to={`/students/${student.id}`}>
                                     {student.firstName + ' ' + student.lastName}
                                 </Link>
+                                <button onClick={() => handleUnregister(student.id)}>Unregister {student.firstName} {student.lastName}</button>
                             </li>)}
                         </ul> 
                         : 'This campus currently has no students enrolled.' }

@@ -81,6 +81,14 @@ export const updateStudentThunk = studentData => {
     }
 }
 
+export const removeFromCampusThunk = studentData => {
+    return async dispatch => {
+        await Axios.put(`/api/students/${studentData.id}`, studentData)
+            .then(res => dispatch(updateStudent(res.data)))
+            .catch(err => console.error(err));
+    }
+}
+
 export const studentsReducer = (state = {}, action) => {
     switch (action.type) {
         case _getStudents:
