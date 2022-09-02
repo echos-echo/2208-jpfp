@@ -32,7 +32,11 @@ campusesRouter.get('/:campusId', async (req, res, next) => {
 
 campusesRouter.put('/:campusId', async (req, res, next) => {
     try {
-        const campus = await Campus.findByPk(req.params.campusId);
+        const campus = await Campus.findByPk(req.params.campusId, {
+            include: {
+                model: Student
+            }
+        });
         res.send(await campus.update(req.body));
     } catch(err) {
         next(err);

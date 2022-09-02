@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addCampusThunk } from '../store/campusesReducer';
+import { addCampusThunk, updateCampusThunk } from '../store/campusesReducer';
 
 export const EditCampus = props => {
     const dispatch = useDispatch();
@@ -9,9 +9,9 @@ export const EditCampus = props => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        // dispatch(addCampusThunk({name, address}));
+        dispatch(updateCampusThunk({name, address, id: props.campus.id}));
 
-        // clears the fields after a campus is added
+        // clears the fields after a campus is updated
         setName('');
         setAddress('');
     }

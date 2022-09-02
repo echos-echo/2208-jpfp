@@ -4700,8 +4700,12 @@ var EditCampus = function EditCampus(props) {
       setAddress = _React$useState4[1];
 
   var handleSubmit = function handleSubmit(event) {
-    event.preventDefault(); // dispatch(addCampusThunk({name, address}));
-    // clears the fields after a campus is added
+    event.preventDefault();
+    dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.updateCampusThunk)({
+      name: name,
+      address: address,
+      id: props.campus.id
+    })); // clears the fields after a campus is updated
 
     setName('');
     setAddress('');
@@ -4794,14 +4798,13 @@ var EditStudent = function EditStudent(props) {
       setEmail = _React$useState6[1];
 
   var handleSubmit = function handleSubmit(event) {
-    event.preventDefault(); // dispatch(addStudentThunk({firstName, lastName, email}));
-
+    event.preventDefault();
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.updateStudentThunk)({
       firstName: firstName,
       lastName: lastName,
       email: email,
       id: props.student.id
-    })); // clears the fields after a student is added
+    })); // clears the fields after a student is updated
 
     setFName('');
     setLName('');
@@ -4983,7 +4986,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "campusesReducer": () => (/* binding */ campusesReducer),
 /* harmony export */   "deleteCampusThunk": () => (/* binding */ deleteCampusThunk),
 /* harmony export */   "getAllCampusesThunk": () => (/* binding */ getAllCampusesThunk),
-/* harmony export */   "getCampusThunk": () => (/* binding */ getCampusThunk)
+/* harmony export */   "getCampusThunk": () => (/* binding */ getCampusThunk),
+/* harmony export */   "updateCampusThunk": () => (/* binding */ updateCampusThunk)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -5163,6 +5167,34 @@ var deleteCampusThunk = function deleteCampusThunk(campusData) {
     };
   }();
 };
+var updateCampusThunk = function updateCampusThunk(campusData) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/campuses/".concat(campusData.id), campusData).then(function (res) {
+                dispatch(updateCampus(res.data));
+                console.dir(res.data);
+              })["catch"](function (err) {
+                return console.error(err);
+              });
+
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+};
 var campusesReducer = function campusesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -5181,6 +5213,11 @@ var campusesReducer = function campusesReducer() {
     case _addCampus:
       return _objectSpread(_objectSpread({}, state), {}, {
         campuses: [].concat(_toConsumableArray(state.campuses), [action.campus])
+      });
+
+    case _updateCampus:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        campus: action.campus
       });
 
     case _deleteCampus:
