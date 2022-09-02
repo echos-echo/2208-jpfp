@@ -6,13 +6,12 @@ import { AddStudent } from "./AddStudent";
 
 export const AllStudents = () => {
     const dispatch = useDispatch();
-    const [studentList, setStudentList] = React.useState(useSelector(state => state.studentsReducer.students));
     const [sort, setSort] = React.useState('none');
 
-    const handleOptions = event => {
-        switch (event.target.value) {
+    const sortStudents = (studentArray, sortOption) => {
+        switch (sortOption) {
             case 'LName_up':
-                studentList.sort((a, b) => {
+                return [...studentArray].sort((a, b) => {
                     if (a.lastName < b.lastName) {
                         return 1;
                     } else if (a.lastName > b.lastName) {
@@ -21,10 +20,9 @@ export const AllStudents = () => {
                         return 0;
                     }
                 });
-                setStudentList(studentList);
-                break;
+                // return studentArray
             case 'LName_down':
-                studentList.sort((a, b) => {
+                return [...studentArray].sort((a, b) => {
                     if (a.lastName > b.lastName) {
                         return 1;
                     } else if (a.lastName < b.lastName) {
@@ -33,24 +31,29 @@ export const AllStudents = () => {
                         return 0;
                     }
                 });
-                setStudentList(studentList);
-                break;
+                // return studentArray
             case 'gpa_up':
-                studentList.sort((a, b) => a.gpa - b.gpa);
-                setStudentList(studentList);
-                break;
+                return [...studentArray].sort((a, b) => a.gpa - b.gpa);
+                // return studentArray;
             case 'gpa_down':
-                studentList.sort((a, b) => b.gpa - a.gpa);
-                setStudentList(studentList);
-                break;
+                return [...studentArray].sort((a, b) => b.gpa - a.gpa);
+                // return studentArray;
+            case 'none':
+                return studentArray;
         }
+    }
+
+    const studentList = sortStudents((useSelector(state => state.studentsReducer.students) || [] ), sort)
+
+    const handleOptions = event => {
+        sortStudents(studentList, event.target.value);
         setSort(event.target.value);
     }
 
     React.useEffect(() => {
         dispatch(getAllStudentsThunk());
         dispatch(clearStudent());
-    }, []);
+    }, [sort]);
 
     return (
         <div>

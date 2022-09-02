@@ -4,7 +4,7 @@ const Student = require('../db/student');
 
 campusesRouter.get('/', async (req, res, next) => {
     try {
-        res.send(await Campus.findAll());
+        res.send(await Campus.findAll({ include: {model: Student}}));
     } catch(err) {
         next(err);
     }

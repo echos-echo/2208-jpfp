@@ -6,18 +6,44 @@ import { AddCampus } from "./AddCampus";
 
 export const AllCampuses = () => {
     const dispatch = useDispatch();
-    // note about useSelector made; please refer to the comment
-    // made in AllStudents.js
-    const campusList = useSelector(state => state.campusesReducer.campuses)
+    const [sort, setSort] = React.useState('none');
+
+    const sortCampuses = (campusArray, sortOption) => {
+        console.log(sortOption)
+        switch (sortOption) {
+            case 'enrolled_up':
+                return [...campusArray].sort((a, b) => 
+                    a.students.length - b.students.length
+                );
+            case 'enrolled_down':
+                return [...campusArray].sort((a, b) => 
+                    b.students.length - a.students.length
+                );
+            case 'none':
+                return campusArray;
+        }
+    };
+    const campusList = sortCampuses(useSelector(state => state.campusesReducer.campuses || []), sort);
+
+    const handleOptions = event => {
+        sortCampuses(campusList, event.target.value);
+        setSort(event.target.value);
+    }
 
     React.useEffect(() => {
         dispatch(getAllCampusesThunk());
         dispatch(clearCampus());
-    }, []);
+    }, [sort]);
 
     return (
         <div>
             <AddCampus/><hr/>
+            <label htmlFor='filter-options'>Filter campuses by:</label>
+            <select name='filter-options' onChange={handleOptions} defaultValue='none'>
+                <option value='enrolled_up'>Number of Students - Ascending</option>
+                <option value='enrolled_down'>Number of Students - Descending</option>
+                <option value='none'>No sorting</option>
+            </select>
             { campusList ?
                 campusList.map(campus => 
                     <div key={campus.id}>
@@ -28,6 +54,7 @@ export const AllCampuses = () => {
                         </Link>
                         <p>{campus.address}</p>
                         <p>{campus.description}</p>
+                        <p><i>{campus.students.length} student(s) attend this campus</i></p>
                         <hr/>
                     </div>)
                 : 'Loading campuses...'
