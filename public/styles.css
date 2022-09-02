@@ -1,7 +1,8 @@
 * {
     background-color: aqua;
     margin: 0px;
-    font: small-caps bold 24px/1 sans-serif;
+    font-family: "Gill Sans", sans-serif;
+    font-variant: small-caps;
 }
 
 body {

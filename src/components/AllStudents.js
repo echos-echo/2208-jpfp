@@ -36,7 +36,7 @@ export const AllStudents = () => {
             case 'gpa_down':
                 return [...studentArray].sort((a, b) => b.gpa - a.gpa).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'none':
-                return studentArray.filter(student => student.firstName.includes(search));
+                return studentArray.filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
         }
     }
 

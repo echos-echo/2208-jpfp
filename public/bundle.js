@@ -4861,7 +4861,7 @@ var AllStudents = function AllStudents() {
 
       case 'none':
         return studentArray.filter(function (student) {
-          return student.firstName.includes(search);
+          return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
     }
   };
