@@ -1,6 +1,7 @@
 * {
     background-color: aqua;
     margin: 0px;
+    font: small-caps bold 24px/1 sans-serif;
 }
 
 body {
@@ -35,7 +36,7 @@ nav {
 }
 
 .divInListing {
-    margin: 3em;
+    margin: 2em;
     padding: 2.5em;
     display: flex;
     flex-direction: column;
@@ -50,8 +51,8 @@ nav {
 }
 .divInListing a {
     display: flex;
-    flex-direction: column;
-    align-content: center;
+    align-items: space-around;
+    justify-items: space-evenly;
 }
 
 .form {
@@ -60,10 +61,18 @@ nav {
 
 .column-list {
     background-color: peachpuff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-items: spa; */
+}
+
+select, label {
+    width: 50%;
 }
 
 .form, .column-list {
-    justify-content: center;
     padding: 2em;
     width: 50%;
 }
@@ -72,7 +81,7 @@ form {
     position: fixed;
     background-color: pink;
     margin-top: 1em;
-    padding: 3em;
+    padding: 2em;
     width: 20%;
     display: flex;
     flex-direction: column;
@@ -82,10 +91,6 @@ form {
 .delete-button {
     background-color: maroon;
     color: white;
-}
-
-img {
-    align-content: center;
 }
 
 .all-campuses form {

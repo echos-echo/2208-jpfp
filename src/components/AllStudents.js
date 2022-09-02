@@ -7,6 +7,7 @@ import { AddStudent } from "./AddStudent";
 export const AllStudents = () => {
     const dispatch = useDispatch();
     const [sort, setSort] = React.useState('none');
+    const [search, setSearch] = React.useState('');
 
     const sortStudents = (studentArray, sortOption) => {
         switch (sortOption) {
@@ -19,8 +20,7 @@ export const AllStudents = () => {
                     } else {
                         return 0;
                     }
-                });
-                // return studentArray
+                }).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'LName_down':
                 return [...studentArray].sort((a, b) => {
                     if (a.lastName > b.lastName) {
@@ -30,16 +30,13 @@ export const AllStudents = () => {
                     } else {
                         return 0;
                     }
-                });
-                // return studentArray
+                }).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'gpa_up':
-                return [...studentArray].sort((a, b) => a.gpa - b.gpa);
-                // return studentArray;
+                return [...studentArray].sort((a, b) => a.gpa - b.gpa).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'gpa_down':
-                return [...studentArray].sort((a, b) => b.gpa - a.gpa);
-                // return studentArray;
+                return [...studentArray].sort((a, b) => b.gpa - a.gpa).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'none':
-                return studentArray;
+                return studentArray.filter(student => student.firstName.includes(search));
         }
     }
 
@@ -47,6 +44,10 @@ export const AllStudents = () => {
 
     const handleOptions = event => {
         setSort(event.target.value);
+    }
+
+    const handleChange = event => {
+        setSearch(event.target.value);
     }
 
     React.useEffect(() => {
@@ -65,6 +66,7 @@ export const AllStudents = () => {
                     <option value='gpa_down'>GPA - Descending</option>
                     <option value='none'>No sorting</option>
                 </select>
+                <input placeholder="Search for student by first name" value={search} onChange={handleChange}/>
                 { studentList ?
                     studentList.map(student => 
                         <div key={student.id} className='divInListing'>

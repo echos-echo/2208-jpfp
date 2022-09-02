@@ -4440,7 +4440,7 @@ var AddCampus = function AddCampus() {
     className: "form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Add a New Campus"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "name"
   }, "Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
@@ -4550,7 +4550,7 @@ var AddStudent = function AddStudent() {
     className: "form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Add a New Student"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "firstName"
   }, "First Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
@@ -4567,7 +4567,7 @@ var AddStudent = function AddStudent() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: "email"
   }, "Email: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "text",
+    type: "email",
     name: "email",
     value: email,
     onChange: handleChange('email')
@@ -4628,22 +4628,65 @@ var AllCampuses = function AllCampuses() {
       sort = _React$useState2[0],
       setSort = _React$useState2[1];
 
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState('none'),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      criteria = _React$useState4[0],
+      setCriteria = _React$useState4[1];
+
+  var handleChange = function handleChange(event) {
+    setCriteria(event.target.value);
+  };
+
   var sortCampuses = function sortCampuses(campusArray, sortOption) {
     console.log(sortOption);
+    console.log(criteria);
 
     switch (sortOption) {
       case 'enrolled_up':
         return _toConsumableArray(campusArray).sort(function (a, b) {
           return a.students && b.students ? a.students.length - b.students.length : -1;
+        }).filter(function (campus) {
+          switch (criteria) {
+            case 'hasStudents':
+              return campus.students.length > 0 ? true : false;
+
+            case 'noStudents':
+              return campus.students.length < 1 ? true : false;
+
+            default:
+              return true;
+          }
         });
 
       case 'enrolled_down':
         return _toConsumableArray(campusArray).sort(function (a, b) {
           return a.students && b.students ? b.students.length - a.students.length : 1;
+        }).filter(function (campus) {
+          switch (criteria) {
+            case 'hasStudents':
+              return campus.students.length > 0 ? true : false;
+
+            case 'noStudents':
+              return campus.students.length < 1 ? true : false;
+
+            default:
+              return true;
+          }
         });
 
       case 'none':
-        return campusArray;
+        return campusArray.filter(function (campus) {
+          switch (criteria) {
+            case 'hasStudents':
+              return campus.students.length > 0 ? true : false;
+
+            case 'noStudents':
+              return campus.students.length < 1 ? true : false;
+
+            default:
+              return true;
+          }
+        });
     }
   };
 
@@ -4675,7 +4718,31 @@ var AllCampuses = function AllCampuses() {
     value: "enrolled_down"
   }, "Number of Students - Descending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "none"
-  }, "No sorting")), campusList ? campusList.map(function (campus) {
+  }, "No sorting")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "radio",
+    value: "hasStudents",
+    name: "enrollment",
+    id: "hasStudents",
+    onChange: handleChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "hasStudents"
+  }, "Display campuses with students enrolled"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "radio",
+    value: "noStudents",
+    name: "enrollment",
+    id: "noStudents",
+    onChange: handleChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "noStudents"
+  }, "Display campuses with no students"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "radio",
+    value: "none",
+    name: "enrollment",
+    id: "none",
+    onChange: handleChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "none"
+  }, "No extra settings"), campusList ? campusList.map(function (campus) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: campus.id,
       className: "divInListing"
@@ -4745,6 +4812,11 @@ var AllStudents = function AllStudents() {
       sort = _React$useState2[0],
       setSort = _React$useState2[1];
 
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(''),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      search = _React$useState4[0],
+      setSearch = _React$useState4[1];
+
   var sortStudents = function sortStudents(studentArray, sortOption) {
     switch (sortOption) {
       case 'LName_up':
@@ -4756,8 +4828,9 @@ var AllStudents = function AllStudents() {
           } else {
             return 0;
           }
+        }).filter(function (student) {
+          return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
-      // return studentArray
 
       case 'LName_down':
         return _toConsumableArray(studentArray).sort(function (a, b) {
@@ -4768,23 +4841,28 @@ var AllStudents = function AllStudents() {
           } else {
             return 0;
           }
+        }).filter(function (student) {
+          return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
-      // return studentArray
 
       case 'gpa_up':
         return _toConsumableArray(studentArray).sort(function (a, b) {
           return a.gpa - b.gpa;
+        }).filter(function (student) {
+          return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
-      // return studentArray;
 
       case 'gpa_down':
         return _toConsumableArray(studentArray).sort(function (a, b) {
           return b.gpa - a.gpa;
+        }).filter(function (student) {
+          return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
-      // return studentArray;
 
       case 'none':
-        return studentArray;
+        return studentArray.filter(function (student) {
+          return student.firstName.includes(search);
+        });
     }
   };
 
@@ -4794,6 +4872,10 @@ var AllStudents = function AllStudents() {
 
   var handleOptions = function handleOptions(event) {
     setSort(event.target.value);
+  };
+
+  var handleChange = function handleChange(event) {
+    setSearch(event.target.value);
   };
 
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
@@ -4820,7 +4902,11 @@ var AllStudents = function AllStudents() {
     value: "gpa_down"
   }, "GPA - Descending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "none"
-  }, "No sorting")), studentList ? studentList.map(function (student) {
+  }, "No sorting")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    placeholder: "Search for student by first name",
+    value: search,
+    onChange: handleChange
+  }), studentList ? studentList.map(function (student) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: student.id,
       className: "divInListing"

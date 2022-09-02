@@ -42,12 +42,13 @@ export const AddStudent = () => {
     return (
         <div className="form">
             <form onSubmit={handleSubmit}>
+                <h3>Add a New Student</h3><hr/>
                 <label htmlFor='firstName'>First Name: </label>
                 <input type='text' name='firstName' value={firstName} onChange={handleChange('firstName')}/>
                 <label htmlFor='lastName'>Last Name: </label>
                 <input type='text' name='lastName' value={lastName} onChange={handleChange('lastName')}/>
                 <label htmlFor='email'>Email: </label>
-                <input type='text' name='email' value={email} onChange={handleChange('email')}/>
+                <input type='email' name='email' value={email} onChange={handleChange('email')}/>
                 <button type='submit'>Add Student</button>
             </form>
         </div>

@@ -7,20 +7,53 @@ import { AddCampus } from "./AddCampus";
 export const AllCampuses = () => {
     const dispatch = useDispatch();
     const [sort, setSort] = React.useState('none');
+    const [criteria, setCriteria] = React.useState('none');
+
+    const handleChange = event => {
+        setCriteria(event.target.value);
+    }
 
     const sortCampuses = (campusArray, sortOption) => {
-        console.log(sortOption)
+        console.log(sortOption);
+        console.log(criteria)
         switch (sortOption) {
             case 'enrolled_up':
                 return [...campusArray].sort((a, b) => 
                     a.students && b.students ? a.students.length - b.students.length : -1
-                );
+                ).filter(campus => {
+                    switch (criteria) {
+                        case 'hasStudents':
+                            return campus.students.length > 0 ? true : false;
+                        case 'noStudents':
+                            return campus.students.length < 1 ? true: false;
+                        default:
+                            return true;
+                    }
+                });
             case 'enrolled_down':
                 return [...campusArray].sort((a, b) => 
                     a.students && b.students ? b.students.length - a.students.length : 1
-                );
+                ).filter(campus => {
+                    switch (criteria) {
+                        case 'hasStudents':
+                            return campus.students.length > 0 ? true : false;
+                        case 'noStudents':
+                            return campus.students.length < 1 ? true: false;
+                        default:
+                            return true;
+                    }
+                });
             case 'none':
-                return campusArray;
+                return campusArray.filter(campus => {
+                    switch (criteria) {
+                        case 'hasStudents':
+                            return campus.students.length > 0 ? true : false;
+                        case 'noStudents':
+                            return campus.students.length < 1 ? true: false;
+                        default:
+                            return true;
+                    }
+                });
         }
     };
     const campusList = sortCampuses(useSelector(state => state.campusesReducer.campuses || []), sort);
@@ -44,6 +77,12 @@ export const AllCampuses = () => {
                     <option value='enrolled_down'>Number of Students - Descending</option>
                     <option value='none'>No sorting</option>
                 </select>
+                <input type='radio' value='hasStudents' name='enrollment' id='hasStudents' onChange={handleChange}/>
+                <label htmlFor='hasStudents'>Display campuses with students enrolled</label>
+                <input type='radio' value='noStudents' name='enrollment' id='noStudents' onChange={handleChange}/>
+                <label htmlFor='noStudents'>Display campuses with no students</label>
+                <input type='radio' value='none' name='enrollment' id='none' onChange={handleChange}/>
+                <label htmlFor='none'>No extra settings</label>
                 { campusList ?
                     campusList.map(campus => 
                         <div key={campus.id} className='divInListing'>

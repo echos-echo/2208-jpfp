@@ -37,6 +37,7 @@ export const AddCampus = () => {
     return (
         <div className="form">
             <form onSubmit={handleSubmit}>
+                <h3>Add a New Campus</h3><hr/>
                 <label htmlFor='name'>Name: </label>
                 <input type='text' name='name' value={name} onChange={handleChange('name')}/>
                 <label htmlFor='address'>Address: </label>
