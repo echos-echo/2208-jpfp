@@ -13,11 +13,11 @@ export const AllCampuses = () => {
         switch (sortOption) {
             case 'enrolled_up':
                 return [...campusArray].sort((a, b) => 
-                    a.students.length - b.students.length
+                    a.students && b.students ? a.students.length - b.students.length : -1
                 );
             case 'enrolled_down':
                 return [...campusArray].sort((a, b) => 
-                    b.students.length - a.students.length
+                    a.students && b.students ? b.students.length - a.students.length : 1
                 );
             case 'none':
                 return campusArray;
@@ -26,7 +26,6 @@ export const AllCampuses = () => {
     const campusList = sortCampuses(useSelector(state => state.campusesReducer.campuses || []), sort);
 
     const handleOptions = event => {
-        sortCampuses(campusList, event.target.value);
         setSort(event.target.value);
     }
 
@@ -54,7 +53,7 @@ export const AllCampuses = () => {
                         </Link>
                         <p>{campus.address}</p>
                         <p>{campus.description}</p>
-                        <p><i>{campus.students.length} student(s) attend this campus</i></p>
+                        <p><i>{campus.students ? `${campus.students.length} student(s) attend this campus` : '0 student(s) attend this campus'}</i></p>
                         <hr/>
                     </div>)
                 : 'Loading campuses...'

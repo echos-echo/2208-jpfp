@@ -4616,12 +4616,12 @@ var AllCampuses = function AllCampuses() {
     switch (sortOption) {
       case 'enrolled_up':
         return _toConsumableArray(campusArray).sort(function (a, b) {
-          return a.students.length - b.students.length;
+          return a.students && b.students ? a.students.length - b.students.length : -1;
         });
 
       case 'enrolled_down':
         return _toConsumableArray(campusArray).sort(function (a, b) {
-          return b.students.length - a.students.length;
+          return a.students && b.students ? b.students.length - a.students.length : 1;
         });
 
       case 'none':
@@ -4634,7 +4634,6 @@ var AllCampuses = function AllCampuses() {
   }), sort);
 
   var handleOptions = function handleOptions(event) {
-    sortCampuses(campusList, event.target.value);
     setSort(event.target.value);
   };
 
@@ -4666,7 +4665,7 @@ var AllCampuses = function AllCampuses() {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       src: campus.imageUrl,
       alt: campus.imageUrl
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, campus.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", null, campus.students.length, " student(s) attend this campus")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null));
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, campus.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, campus.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", null, campus.students ? "".concat(campus.students.length, " student(s) attend this campus") : '0 student(s) attend this campus')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null));
   }) : 'Loading campuses...');
 };
 
@@ -4770,7 +4769,6 @@ var AllStudents = function AllStudents() {
   }) || [], sort);
 
   var handleOptions = function handleOptions(event) {
-    sortStudents(studentList, event.target.value);
     setSort(event.target.value);
   };
 

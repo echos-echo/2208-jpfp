@@ -46,7 +46,6 @@ export const AllStudents = () => {
     const studentList = sortStudents((useSelector(state => state.studentsReducer.students) || [] ), sort)
 
     const handleOptions = event => {
-        sortStudents(studentList, event.target.value);
         setSort(event.target.value);
     }
 
