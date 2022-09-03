@@ -14,9 +14,9 @@ function App(){
         <BrowserRouter>
             <div className="content">
                 <nav>
-                    <Link to='/students'>Our Students</Link>
+                    <Link to='/students'><div>Students</div></Link>
                     <br/>
-                    <Link to='/campuses'>Our Campuses</Link>
+                    <Link to='/campuses'><div>Campuses</div></Link>
                 </nav>
                 <main>
                     <Routes>

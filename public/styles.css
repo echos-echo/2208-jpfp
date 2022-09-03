@@ -5,10 +5,6 @@
     font-variant: small-caps;
 }
 
-body {
-    margin: 10px;
-}
-
 .content {
     display: flex;
     flex-direction: column;
@@ -20,7 +16,6 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 8px;
     padding: 3%;
 }
 
@@ -66,16 +61,24 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-items: spa; */
 }
 
-select, label {
-    width: 50%;
+select, label, input {
+    width: 60%;
+    margin: 8px;
+}
+
+input#hasStudents, input#noStudents, input#none {
+    width: 30px;
 }
 
 .form, .column-list {
     padding: 2em;
     width: 50%;
+}
+
+.all-campuses input {
+    display: inline;
 }
 
 form {
@@ -87,6 +90,10 @@ form {
     display: flex;
     flex-direction: column;
     border: 3px solid black;
+}
+
+.column-list input {
+    width: 50%;
 }
 
 .delete-button {

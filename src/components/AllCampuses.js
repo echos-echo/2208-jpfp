@@ -77,12 +77,17 @@ export const AllCampuses = () => {
                     <option value='enrolled_down'>Number of Students - Descending</option>
                     <option value='none'>No sorting</option>
                 </select>
-                <input type='radio' value='hasStudents' name='enrollment' id='hasStudents' onChange={handleChange}/>
-                <label htmlFor='hasStudents'>Display campuses with students enrolled</label>
-                <input type='radio' value='noStudents' name='enrollment' id='noStudents' onChange={handleChange}/>
-                <label htmlFor='noStudents'>Display campuses with no students</label>
-                <input type='radio' value='none' name='enrollment' id='none' onChange={handleChange}/>
-                <label htmlFor='none'>No extra settings</label>
+                
+                <label htmlFor='hasStudents'>
+                    <input type='radio' value='hasStudents' name='enrollment' id='hasStudents' onChange={handleChange}/>Display campuses with students enrolled
+                </label>
+                <label htmlFor='noStudents'>
+                    <input type='radio' value='noStudents' name='enrollment' id='noStudents' onChange={handleChange}/>Display campuses with no students
+                </label>
+                
+                <label htmlFor='none'>
+                    <input type='radio' value='none' name='enrollment' id='none' onChange={handleChange}/>No extra settings
+                </label>
                 { campusList ?
                     campusList.map(campus => 
                         <div key={campus.id} className='divInListing'>
