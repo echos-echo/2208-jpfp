@@ -5,50 +5,69 @@
     font-variant: small-caps;
 }
 
+/* div for all the content on the page */
 .content {
+    position:absolute;
+    top: 10vh;
     display: flex;
     flex-direction: column;
     width: 90vw;
 }
 
-nav {
-    background-color: yellow;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding: 3%;
-}
-
+/* one level above .content, encapsulates content (and all other page content) */
 #root {
     display: flex;
     justify-content: space-evenly;
 }
 
-/* class for divs AllCampuses and AllStudents */
+/* nav bar, includes the two links to pages */
+nav {
+    width: 90vw;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* elements in the nav bar, the two links */
+nav a {
+    background-color: yellow;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    width: 45vw;
+    padding: 2% 0px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background-color: red;
+    font-size: 25px;
+}
+
+/* class for divs in AllCampuses and AllStudents, creates the two columns on the page */
 .all-students, .all-campuses {
     justify-content: space-between;
     display: flex;
     flex-direction: row;
 }
 
+/* each div with student/campus info in the all-pages  */
 .divInListing {
-    margin: 2em;
+    margin: 1.5em;
     padding: 2.5em;
     display: flex;
     flex-direction: column;
 }
 
 .divInListing, .divInListing * {
+    margin: 8px;
     background-color: rgb(255, 255, 255);
 }
 
-.divInListing * {
-    margin: 8px;
-}
+/* makes the image and name of a listing appear next to each other */
 .divInListing a {
     display: flex;
-    align-items: space-around;
-    justify-items: space-evenly;
 }
 
 .form {
