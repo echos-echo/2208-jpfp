@@ -31,14 +31,14 @@ export const EditStudent = props => {
     }, [firstName, lastName, email]);
 
     return (
-        <div>
+        <div className="edit-form">
             <form onSubmit={handleSubmit}>
                 <label htmlFor='firstName'>First Name: </label>
                 <input type='text' name='firstName' value={firstName} onChange={handleChange('firstName')}/>
                 <label htmlFor='lastName'>Last Name: </label>
                 <input type='text' name='lastName' value={lastName} onChange={handleChange('lastName')}/>
                 <label htmlFor='email'>Email: </label>
-                <input type='text' name='email' value={email} onChange={handleChange('email')}/>
+                <input type='email' name='email' value={email} onChange={handleChange('email')}/>
                 <button type='submit'>Update Student Information</button>
             </form>
         </div>

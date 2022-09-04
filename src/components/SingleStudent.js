@@ -28,8 +28,9 @@ export const SingleStudent = () => {
         <div>
             { 
             student ?
-                    <div key={student.id}>
+                    <div key={student.id} className='single-detail'>
                         <EditStudent student={student}/>
+                        <div className="detailed-info">
                         <Link to={`/students/${student.id}`}>
                         <img src={student.imageUrl} alt={student.imageUrl}/>
                         <h2>{student.firstName + ' ' + student.lastName}</h2>
@@ -38,6 +39,7 @@ export const SingleStudent = () => {
                         <p>GPA: {student.gpa}</p>
                         <h3>Campus: {thisStudentsCampus ? <Link to={`/campuses/${thisStudentsCampus.id}`}>{thisStudentsCampus.name}</Link> : 'Currently not enrolled'}</h3>
                         <hr/>
+                        </div>
                     </div>
                 : students.findIndex(currStudent => currStudent.id === parseInt(params.studentId)) !== -1 ? 'Loading student...' : 'Student does not exist' 
             }

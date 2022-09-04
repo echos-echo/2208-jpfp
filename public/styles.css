@@ -101,10 +101,20 @@ form {
     color: white;
 }
 
-.all-campuses form {
+.all-campuses form, .single-detail form {
     left: 15%;
 }
 
+
 .all-students form {
     right: 15%;
+}
+
+.single-detail {
+    display: flex;
+    flex-direction: row;
+}
+
+.edit-form, .detailed-info {
+    width: 50%;
 }

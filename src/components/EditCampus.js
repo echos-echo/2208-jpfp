@@ -27,7 +27,7 @@ export const EditCampus = props => {
     }, [name, address]);
 
     return (
-        <div>
+        <div className="edit-form">
             <form onSubmit={handleSubmit}>
                 <label htmlFor='name'>Name: </label>
                 <input type='text' name='name' value={name} onChange={handleChange('name')}/>
