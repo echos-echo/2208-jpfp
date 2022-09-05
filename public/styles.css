@@ -110,31 +110,40 @@ form input {
     width: 80%;
 }
 
+/* css for delete button on listings */
 .delete-button {
     background-color: maroon;
     color: white;
 }
 
+/* absolute positioning of the form on these two pages */
 .all-campuses form, .single-detail form {
     left: 15%;
 }
-
+/* absolute positioning of the form on this page */
 .all-students form {
     right: 15%;
 }
 
+/* the page viewing the details of a single student/campus */
 .single-detail {
     display: flex;
     flex-direction: row;
 }
 
+/* the two columns in the single-detail div */
 .edit-form, .detailed-info {
-    margin: 13px;
-    padding: 3%;
-    border: 2px black solid;
     width: 45%;
 }
 
+/* detailed info holds the selected details */
+.detailed-info {
+    margin: 15px;
+    padding: 3%;
+    border: 2px black solid;
+}
+
+/* global button styling -- handles the hover selector */
 button {
     padding: 3px;
     margin: 8px;
