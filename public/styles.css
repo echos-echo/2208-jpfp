@@ -1,5 +1,4 @@
 * {
-    background-color: aqua;
     margin: 0px;
     font-family: "Gill Sans", sans-serif;
     font-variant: small-caps;
@@ -22,9 +21,10 @@
 
 /* nav bar, includes the two links to pages */
 nav {
-    width: 90vw;
+    width: 100vw;
     position: fixed;
     top: 0px;
+    left: 0px;
     display: flex;
     flex-direction: row;
     border-bottom: 2px black solid;
@@ -32,17 +32,17 @@ nav {
 
 /* elements in the nav bar, the two links */
 nav a {
-    background-color: yellow;
+    background-color: #D4E6B5;
     font-size: 20px;
     display: flex;
     justify-content: center;
-    width: 45vw;
+    width: 50vw;
     padding: 2% 0px;
     transition: 0.3s;
 }
 
 nav a:hover {
-    background-color: red;
+    background-color: #AFC97E;
     font-size: 25px;
 }
 
@@ -55,15 +55,17 @@ nav a:hover {
 
 /* each div with student/campus info in the all-pages  */
 .divInListing {
+    background-color: #D4E6B5;
     margin: 1.5em;
     padding: 2.5em;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
 }
 
 .divInListing * {
     margin: 8px;
-    background-color: rgb(255, 255, 255);
+    background-color: #D4E6B5;
 }
 
 /* makes the image and name of a listing appear next to each other */
@@ -98,13 +100,13 @@ input#hasStudents, input#noStudents, input#none {
 /* css for form + form input where data is created/updated */
 form {
     position: fixed;
-    background-color: pink;
+    background-color: #A7C3C2;
     margin-top: 1em;
     padding: 2em;
     width: 20%;
     display: flex;
     flex-direction: column;
-    border: 3px solid black;
+    border-radius: 10px;
 }
 form input {
     width: 80%;
@@ -112,7 +114,7 @@ form input {
 
 /* css for delete button on listings */
 .delete-button {
-    background-color: maroon;
+    background-color: #752F41;
     color: white;
 }
 
@@ -140,7 +142,7 @@ form input {
 .detailed-info {
     margin: 15px;
     padding: 3%;
-    border: 2px black solid;
+    border: 4px #2481BA solid;
 }
 
 /* global button styling -- handles the hover selector */
