@@ -31,7 +31,7 @@ export const SingleCampus = () => {
                     <div className="detailed-info">
                         <img src={campus.imageUrl} alt={campus.imageUrl}/>
                         <h2>{campus.name}</h2>
-                        <p>{campus.address}</p>
+                        <p><i>{campus.address}</i></p>
                         <p>{campus.description}</p>
                         <h3>Students Currently Enrolled:</h3>
                         {console.log('rendering...')}
