@@ -12,25 +12,11 @@ export const AllStudents = () => {
     const sortStudents = (studentArray, sortOption) => {
         switch (sortOption) {
             case 'LName_up':
-                return [...studentArray].sort((a, b) => {
-                    if (a.lastName < b.lastName) {
-                        return 1;
-                    } else if (a.lastName > b.lastName) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                }).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
+                return [...studentArray].sort((a, b) => a.lastName < b.lastName ? 1 : a.lastName > b.lastName ? -1 : 0)
+                .filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'LName_down':
-                return [...studentArray].sort((a, b) => {
-                    if (a.lastName > b.lastName) {
-                        return 1;
-                    } else if (a.lastName < b.lastName) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                }).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
+                return [...studentArray].sort((a, b) => a.lastName > b.lastName ? 1 : a.lastName < b.lastName ? -1 : 0)
+                .filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'gpa_up':
                 return [...studentArray].sort((a, b) => a.gpa - b.gpa).filter(student => student.firstName.toLowerCase().includes(search.toLowerCase()));
             case 'gpa_down':

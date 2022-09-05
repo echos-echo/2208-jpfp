@@ -10,7 +10,6 @@ export const SingleCampus = () => {
     const params = useParams();
     const campus = useSelector(state => state.campusesReducer.campus);
     const campuses = useSelector(state => state.campusesReducer.campuses || []);
-    console.dir(campus)
 
     const handleUnregister = student => {
         dispatch(removeFromCampusThunk({campusId: null, id: student.id}));

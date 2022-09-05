@@ -4635,12 +4635,10 @@ var AllCampuses = function AllCampuses() {
 
   var handleChange = function handleChange(event) {
     setCriteria(event.target.value);
-  };
+  }; // sorts the array of campuses according to some criteria the user decides
+
 
   var sortCampuses = function sortCampuses(campusArray, sortOption) {
-    console.log(sortOption);
-    console.log(criteria);
-
     switch (sortOption) {
       case 'enrolled_up':
         return _toConsumableArray(campusArray).sort(function (a, b) {
@@ -4821,26 +4819,14 @@ var AllStudents = function AllStudents() {
     switch (sortOption) {
       case 'LName_up':
         return _toConsumableArray(studentArray).sort(function (a, b) {
-          if (a.lastName < b.lastName) {
-            return 1;
-          } else if (a.lastName > b.lastName) {
-            return -1;
-          } else {
-            return 0;
-          }
+          return a.lastName < b.lastName ? 1 : a.lastName > b.lastName ? -1 : 0;
         }).filter(function (student) {
           return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
 
       case 'LName_down':
         return _toConsumableArray(studentArray).sort(function (a, b) {
-          if (a.lastName > b.lastName) {
-            return 1;
-          } else if (a.lastName < b.lastName) {
-            return -1;
-          } else {
-            return 0;
-          }
+          return a.lastName > b.lastName ? 1 : a.lastName < b.lastName ? -1 : 0;
         }).filter(function (student) {
           return student.firstName.toLowerCase().includes(search.toLowerCase());
         });
@@ -5181,7 +5167,6 @@ var SingleCampus = function SingleCampus() {
   var campuses = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.campusesReducer.campuses || [];
   });
-  console.dir(campus);
 
   var handleUnregister = function handleUnregister(student) {
     dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_3__.removeFromCampusThunk)({

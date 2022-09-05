@@ -13,9 +13,8 @@ export const AllCampuses = () => {
         setCriteria(event.target.value);
     }
 
+    // sorts the array of campuses according to some criteria the user decides
     const sortCampuses = (campusArray, sortOption) => {
-        console.log(sortOption);
-        console.log(criteria)
         switch (sortOption) {
             case 'enrolled_up':
                 return [...campusArray].sort((a, b) => 
@@ -56,6 +55,7 @@ export const AllCampuses = () => {
                 });
         }
     };
+    
     const campusList = sortCampuses(useSelector(state => state.campusesReducer.campuses || []), sort);
 
     const handleOptions = event => {
