@@ -11,7 +11,7 @@ export const SingleStudent = () => {
     const student = useSelector(state => state.studentsReducer.student);
     const campuses = useSelector(state => state.campusesReducer.campuses);
     const students = useSelector(state => state.studentsReducer.students || []);
-    const thisStudentsCampus = useSelector(state => state.studentsReducer.student ? state.studentsReducer.student.campusId : null);
+    const thisStudentsCampus = useSelector(state => state.studentsReducer.student ? state.studentsReducer.student.campusId : undefined);
 
     // .find() would cause an error on the first render, hence ternary
     // const thisStudentsCampus = (useSelector(state => state.campusesReducer.campuses) && student) ? campuses.find(campus => campus.id === student.campusId) : console.log('campus render');

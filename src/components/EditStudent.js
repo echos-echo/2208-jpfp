@@ -44,9 +44,9 @@ export const EditStudent = props => {
                 <label htmlFor='email'>Email: </label>
                 <input type='email' name='email' value={email} onChange={handleChange('email')}/>
                 <label htmlFor='campus'>Select a campus:</label>
-                <select name='campus' defaultValue={campusId ? campusId : undefined} onChange={handleChange('campus')}>
+                <select name='campus' defaultValue={campusId} onChange={handleChange('campus')}>
                     <option value={undefined}>Not enrolled</option>
-                    {props.campuses ? props.campuses.map(campus => <option value={campus.id} key={campus.id}>{campus.name}</option>) : null}
+                    {props.campuses ? [...props.campuses].sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0).map(campus => <option value={campus.id} key={campus.id}>{campus.name}</option>) : null}
                 </select>
                 <button type='submit'>Update Student Information</button>
             </form>

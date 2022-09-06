@@ -5019,6 +5019,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/studentsReducer */ "./src/store/studentsReducer.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5125,11 +5133,13 @@ var EditStudent = function EditStudent(props) {
     htmlFor: "campus"
   }, "Select a campus:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
     name: "campus",
-    defaultValue: campusId ? campusId : undefined,
+    defaultValue: campusId,
     onChange: handleChange('campus')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: undefined
-  }, "Not enrolled"), props.campuses ? props.campuses.map(function (campus) {
+  }, "Not enrolled"), props.campuses ? _toConsumableArray(props.campuses).sort(function (a, b) {
+    return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+  }).map(function (campus) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
       value: campus.id,
       key: campus.id
@@ -5275,7 +5285,7 @@ var SingleStudent = function SingleStudent() {
     return state.studentsReducer.students || [];
   });
   var thisStudentsCampus = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.studentsReducer.student ? state.studentsReducer.student.campusId : null;
+    return state.studentsReducer.student ? state.studentsReducer.student.campusId : undefined;
   }); // .find() would cause an error on the first render, hence ternary
   // const thisStudentsCampus = (useSelector(state => state.campusesReducer.campuses) && student) ? campuses.find(campus => campus.id === student.campusId) : console.log('campus render');
 
