@@ -10,7 +10,7 @@
     top: 10vh;
     display: flex;
     flex-direction: column;
-    width: 90vw;
+    width: 90%;
 }
 
 /* one level above .content, encapsulates content (and all other page content) */
@@ -37,7 +37,7 @@ nav a {
     display: flex;
     justify-content: center;
     width: 50vw;
-    padding: 2% 0px;
+    padding: 3vh 0px;
     transition: 0.3s;
 }
 
@@ -92,6 +92,10 @@ select, label, input {
     margin: 8px;
 }
 
+.edit-form select {
+    width: 100%;
+}
+
 /* css specifically for the radio buttons on list of campuses, as it is nested inside the label */
 input#hasStudents, input#noStudents, input#none {
     width: 30px;
@@ -129,12 +133,14 @@ form input {
 
 /* the page viewing the details of a single student/campus */
 .single-detail {
+    margin-top: 1.7em;
     display: flex;
     flex-direction: row;
 }
 
 /* the two columns in the single-detail div */
 .edit-form, .detailed-info {
+    
     width: 45%;
 }
 
