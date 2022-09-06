@@ -5052,13 +5052,25 @@ var EditStudent = function EditStudent(props) {
       email = _React$useState6[0],
       setEmail = _React$useState6[1];
 
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(props.campusId),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      campusId = _React$useState8[0],
+      setCampus = _React$useState8[1];
+
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
-    dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.updateStudentThunk)({
+    isNaN(campusId) ? dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.updateStudentThunk)({
       firstName: firstName,
       lastName: lastName,
       email: email,
-      id: props.student.id
+      id: props.student.id,
+      campusId: null
+    })) : dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_2__.updateStudentThunk)({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      id: props.student.id,
+      campusId: campusId
     }));
   };
 
@@ -5076,11 +5088,14 @@ var EditStudent = function EditStudent(props) {
         case 'email':
           setEmail(event.target.value);
           break;
+
+        case 'campus':
+          setCampus(event.target.value);
       }
     };
   };
 
-  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {}, [firstName, lastName, email]);
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {}, [firstName, lastName, email, campusId]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "edit-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
@@ -5106,7 +5121,20 @@ var EditStudent = function EditStudent(props) {
     name: "email",
     value: email,
     onChange: handleChange('email')
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "campus"
+  }, "Select a campus:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "campus",
+    defaultValue: campusId ? campusId : undefined,
+    onChange: handleChange('campus')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: undefined
+  }, "Not enrolled"), props.campuses ? props.campuses.map(function (campus) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      value: campus.id,
+      key: campus.id
+    }, campus.name);
+  }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "submit"
   }, "Update Student Information")));
 };
@@ -5245,11 +5273,12 @@ var SingleStudent = function SingleStudent() {
   });
   var students = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.studentsReducer.students || [];
+  });
+  var thisStudentsCampus = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.studentsReducer.student ? state.studentsReducer.student.campusId : null;
   }); // .find() would cause an error on the first render, hence ternary
+  // const thisStudentsCampus = (useSelector(state => state.campusesReducer.campuses) && student) ? campuses.find(campus => campus.id === student.campusId) : console.log('campus render');
 
-  var thisStudentsCampus = campuses && student ? campuses.find(function (campus) {
-    return campus.id === student.campusId;
-  }) : null;
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     if (!isNaN(params.studentId)) {
       dispatch((0,_store_studentsReducer__WEBPACK_IMPORTED_MODULE_3__.getOneStudentThunk)(params.studentId)); // need to use allcampuses here too. accessing this page
@@ -5258,11 +5287,13 @@ var SingleStudent = function SingleStudent() {
       dispatch((0,_store_campusesReducer__WEBPACK_IMPORTED_MODULE_2__.getAllCampusesThunk)());
     }
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, student ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, student && campuses ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: student.id,
     className: "single-detail"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_EditStudent__WEBPACK_IMPORTED_MODULE_4__.EditStudent, {
-    student: student
+    student: student,
+    campusId: thisStudentsCampus,
+    campuses: campuses
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "detailed-info"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
@@ -5271,8 +5302,10 @@ var SingleStudent = function SingleStudent() {
     src: student.imageUrl,
     alt: student.imageUrl
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, student.firstName + ' ' + student.lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, student.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "GPA: ", student.gpa), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Campus: ", thisStudentsCampus ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
-    to: "/campuses/".concat(thisStudentsCampus.id)
-  }, thisStudentsCampus.name) : 'Currently not enrolled'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null))) : students.findIndex(function (currStudent) {
+    to: "/campuses/".concat(thisStudentsCampus)
+  }, campuses.find(function (campus) {
+    return campus.id === parseInt(thisStudentsCampus);
+  }).name) : 'Currently not enrolled'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null))) : students.findIndex(function (currStudent) {
     return currStudent.id === parseInt(params.studentId);
   }) !== -1 ? 'Loading student...' : 'Student does not exist');
 };
